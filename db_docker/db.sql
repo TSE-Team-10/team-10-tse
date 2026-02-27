@@ -23,7 +23,7 @@ USE `CharGenWebsite` ;
 CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`user` (
   `alias` VARCHAR(45) NOT NULL,
   `password_hash` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL UNIQUE,
   PRIMARY KEY (`email`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   UNIQUE INDEX `alias_UNIQUE` (`alias` ASC) VISIBLE)
@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_list` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id` (`id` ASC) VISIBLE,
   CONSTRAINT `email`
-    FOREIGN KEY ()
-    REFERENCES `CharGenWebsite`.`user` ()
+    FOREIGN KEY (`belongs_to`)
+    REFERENCES `CharGenWebsite`.`user` (`email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -56,12 +56,11 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_attributes` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `strength` INT NOT NULL DEFAULT 0,
-  `dexterity` VARCHAR(45) NOT NULL DEFAULT 0,
-  `constitution` VARCHAR(45) NOT NULL DEFAULT 0,
-  `intelligence` VARCHAR(45) NOT NULL DEFAULT 0,
-  `wisdom` VARCHAR(45) NOT NULL DEFAULT 0,
-  `charisma` VARCHAR(45) NOT NULL DEFAULT 0,
-  `character_attributescol` VARCHAR(45) NULL DEFAULT 0,
+  `dexterity` INT NOT NULL DEFAULT 0,
+  `constitution` INT NOT NULL DEFAULT 0,
+  `intelligence` INT NOT NULL DEFAULT 0,
+  `wisdom` INT NOT NULL DEFAULT 0,
+  `charisma` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   CONSTRAINT `belongs_to`
@@ -82,7 +81,6 @@ CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_details` (
   `class` VARCHAR(45) NULL,
   `level` VARCHAR(45) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  CONSTRAINT `belongs_to`
     FOREIGN KEY (`id`)
     REFERENCES `CharGenWebsite`.`character_list` (`id`)
     ON DELETE NO ACTION
@@ -94,6 +92,7 @@ ENGINE = InnoDB;
 -- Table `CharGenWebsite`.`character_skills`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_skills` (
+  `id` INT NOT NULL,
   `acrobatics` INT NOT NULL DEFAULT 0,
   `animal_handling` INT NOT NULL DEFAULT 0,
   `arcana` INT NOT NULL DEFAULT 0,
@@ -110,10 +109,9 @@ CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_skills` (
   `sleight_of_hand` INT NOT NULL DEFAULT 0,
   `stealth` INT NOT NULL DEFAULT 0,
   `survival` INT NOT NULL DEFAULT 0,
-  `id` INT NOT NULL,
-  PRIMARY KEY (`acrobatics`, `id`),
+
+  PRIMARY KEY (`id`),
   INDEX `belongs_to_idx` (`id` ASC) VISIBLE,
-  CONSTRAINT `belongs_to`
     FOREIGN KEY (`id`)
     REFERENCES `CharGenWebsite`.`character_list` (`id`)
     ON DELETE NO ACTION
@@ -124,9 +122,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `CharGenWebsite`.`derived_attributes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`derived_attributes` (
-)
-ENGINE = InnoDB;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
