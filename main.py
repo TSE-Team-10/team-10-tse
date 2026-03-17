@@ -232,3 +232,24 @@ def get_character_by_user_email(id_in:int):
 
         # Mock response for testing without database connection
         #return {"id": 0, "belongs_to": "JohnnyTest@Test.com"}
+
+# Delete Character by Character ID Endpoint
+@app.delete("/character/{character_id}")
+def delete_character(character_id: int):
+    if get_character_by_id(character_id):
+        curr = conn.cursor()
+        query = "DELETE FROM CharGenWebsite.character_list WHERE id = %s"
+        curr.execute(query, (character_id))
+        return f"Character {character_id} deleted"
+    else:
+        return "Character not found"
+    
+def get_character_by_id(character_id: int):
+    curr = conn.cursor()
+    query = "SELECT belongs_to FROM CharGenWebsite.character_list WHERE id = %s"
+    curr.execute(query, (character_id))
+    result = curr.fetchone()
+    if len(result) == 0:
+        raise HTTPException(status_code=404, detail="Character not found")
+    else:
+        return True
