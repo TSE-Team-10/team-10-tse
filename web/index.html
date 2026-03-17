@@ -17,6 +17,9 @@
     </nav>
 </header>
 
+<button onclick="get_char_by_id()">Load Data</button>
+
+
 <script>
     //helloworld
     function helloworld()
@@ -26,10 +29,12 @@
 
 
     //get character by id
-    function get_char_by_id(id = 0)
+    //test function to ensure connection to back-end
+    //will output first entry to console
+    function get_char_by_id(id = 1)
     {
 
-        fetch(`https://127.0.0.1:8000/character/${id}`)
+        fetch(`http://127.0.0.1:8000/character/${id}`)
         .then(response => response.json())
         .then(data => {console.log("name:", data.name);
                        console.log("user:",data.belongs_to);})

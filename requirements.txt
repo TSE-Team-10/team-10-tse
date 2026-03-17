@@ -1,4 +1,0 @@
-fastapi
-mysqlclient
-uvicorn
-sqlalchemy
