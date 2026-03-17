@@ -118,6 +118,14 @@ CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_skills` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+INSERT INTO `character_list`(
+  `id`,
+  `belongs_to`)
+VALUES (
+  `0`,
+  `0`)
+
+
 
 -- -----------------------------------------------------
 -- Table `CharGenWebsite`.`derived_attributes`

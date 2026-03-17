@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>landing page</title>
+</head>
+
+<body>
+<header>
+    <h1>Welcome to the [PROJECT] Website V0.1</h1>
+    <nav>
+        <a href="index.html">Main</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+
+<script>
+    //helloworld
+    function helloworld()
+    {
+        console.log("HelloWorld");
+    }
+
+
+    //get character by id
+    function get_char_by_id(id = 0)
+    {
+
+        fetch(`https://127.0.0.1:8000/character/${id}`)
+        .then(response => response.json())
+        .then(data => {console.log("name:", data.name);
+                       console.log("user:",data.belongs_to);})
+        .catch(error => console.error("Error: ", error));
+    }
+    
+    helloworld()
+</script>
+
+<main>
+<p>Welcome to the jungle</p>
+</main>
+<footer>
+    <p>&copy; 2026 TSE10. All rights Reserved</p>
+</footer>
+</body>
+</html>
