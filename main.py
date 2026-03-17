@@ -24,12 +24,49 @@ app.add_middleware(
 )
 # Classes
 
+class User(BaseModel):
+    alias: str
+    password_hash: str
+    email: str
 
 class Character_List(BaseModel):
     id: int
     belongs_to:str
 
+class Character_Attributes(BaseModel):
+    id: int
+    strength: int
+    dexterity: int
+    constitution: int
+    intelligence: int
+    wisdom: int
+    charisma: int
 
+class Character_Details(BaseModel):
+    id: int
+    name: str
+    race: str
+    char_class: str
+    level : str
+
+class Character_Skills(BaseModel):
+    id: int
+    acrobatics: int
+    animal_handling: int
+    arcana: int
+    athletics: int
+    deception: int
+    history: int
+    insight: int
+    intimidation: int
+    investigation: int
+    medicine: int
+    nature: int
+    perception: int
+    religion: int
+    sleight_of_hand: int
+    stealth: int
+    survival: int
 
 
 
