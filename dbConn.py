@@ -1,10 +1,10 @@
-import MySQLdb
+import pymysql
 
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'passwd': 'root',
-    'db': 'temp'
+    'passwd': 'tse10',
+    'db': 'CharGenWebsite'
 }
 
-conn = MySQLdb.connect(**db_config)
+conn = pymysql.connect(**db_config)
