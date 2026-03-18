@@ -1,3 +1,5 @@
 fastapi
 pymysql
 uvicorn
+pymysql
+passlib
