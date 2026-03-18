@@ -48,26 +48,12 @@ class Character_Details(BaseModel):
     name: str
     race: str
     char_class: str
-    level : str
+    level : int
 
 class Character_Skills(BaseModel):
     id: int
-    acrobatics: int
-    animal_handling: int
-    arcana: int
-    athletics: int
-    deception: int
-    history: int
-    insight: int
-    intimidation: int
-    investigation: int
-    medicine: int
-    nature: int
-    perception: int
-    religion: int
-    sleight_of_hand: int
-    stealth: int
-    survival: int
+    skill: str
+    value: int
 
 
 
