@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dbConn import conn
 from pydantic import BaseModel
 from typing import List
+import security
 
 app = FastAPI()
 
@@ -232,3 +233,21 @@ def get_character_by_user_email(id_in:int):
 
         # Mock response for testing without database connection
         #return {"id": 0, "belongs_to": "JohnnyTest@Test.com"}
+
+
+#Post User Endpoint
+@app.post("/user/", response_model=User)
+def create_user(user: User):
+    # Hash the password before storing it in the database
+    user.password_hash = security.getPasswordHash(user.password_hash)
+    # Database insertion
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.user (alias, password_hash, email) VALUES (%s, %s, %s)"
+    try:
+        curr.execute(query, (user.alias, user.password_hash, user.email))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occurred while inserting user.")
+
+    return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
