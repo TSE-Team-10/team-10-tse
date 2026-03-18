@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app.dbConn import conn
+from app.session.dbConn import conn
 from pydantic import BaseModel
 from typing import List
-import security
+import app.core.security
 
 app = FastAPI()
 
