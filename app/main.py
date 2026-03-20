@@ -4,6 +4,11 @@ from app.session.dbConn import conn
 from pydantic import BaseModel
 from typing import List
 import app.core.security as security
+from model.user import User
+from model.character_attributes import Character_Attributes
+from model.character_details import Character_Details
+from model.character_list import Character_List
+from model.character_skills import Character_Skills
 
 app = FastAPI()
 
@@ -23,38 +28,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# Classes
-
-class User(BaseModel):
-    alias: str
-    password_hash: str
-    email: str
-
-class Character_List(BaseModel):
-    id: int
-    belongs_to:str
-
-class Character_Attributes(BaseModel):
-    id: int
-    strength: int
-    dexterity: int
-    constitution: int
-    intelligence: int
-    wisdom: int
-    charisma: int
-
-class Character_Details(BaseModel):
-    id: int
-    name: str
-    race: str
-    char_class: str
-    level : int
-
-class Character_Skills(BaseModel):
-    id: int
-    skill: str
-    value: int
-
 
 
 @app.get("/")
