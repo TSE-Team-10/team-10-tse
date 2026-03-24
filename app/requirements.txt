@@ -3,3 +3,5 @@ pymysql
 uvicorn
 pymysql
 passlib
+sqlalchemy
+pyjwt
