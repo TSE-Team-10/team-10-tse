@@ -210,3 +210,19 @@ def create_user(user: User):
         raise HTTPException(status_code=500, detail="Error occurred while inserting user.")
 
     return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
+
+#Post Character Endpoint
+@app.post("/characters/", response_model=Character_List)
+def create_character(character: Character_List):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_list (belongs_to) VALUES (%s)"
+    try:
+        curr.execute(query,(character.belongs_to))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting character to character_list")
+    
+
+
+    return {"belongs_to": character.belongs_to}
