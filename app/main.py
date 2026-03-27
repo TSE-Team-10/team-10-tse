@@ -210,3 +210,18 @@ def create_user(user: User):
         raise HTTPException(status_code=500, detail="Error occurred while inserting user.")
 
     return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
+
+
+#Post Character Attributes
+@app.post("character_attributes", response_model=Character_Attributes)
+def create_character_attributes(character_attributes: Character_Attributes):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_attributes (strength,dexterity,constitution,intelligence,wisdom,charisma) VALUES (%s,%s,%s,%s,%s,%s)"
+    try:
+        curr.execute(query, (character_attributes.strength,character_attributes.dexterity,character_attributes.constitution,character_attributes.intelligence,character_attributes.wisdom,character_attributes.charisma))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting into the character_attributes table")
+    
+    return {"strength": character_attributes.strength, "dexterity": character_attributes.dexterity, "constitution": character_attributes.constitution, "intelligence": character_attributes.intelligence, "wisdom": character_attributes.wisdom, "charisma": character_attributes.charisma}
