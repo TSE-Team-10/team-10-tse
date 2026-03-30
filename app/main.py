@@ -7,7 +7,7 @@ import app.core.security as security
 from app.model.user import User
 from app.model.character_attributes import Character_Attributes
 from app.model.character_details import Character_Details
-from app.model.character_list import Character_List
+from app.model.character_list import Character_List, Character_List_Create
 from app.model.character_skills import Character_Skills
 
 app = FastAPI()
@@ -212,8 +212,8 @@ def create_user(user: User):
     return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
 
 #Post Character Endpoint
-@app.post("/characters/", response_model=Character_List)
-def create_character(character: Character_List):
+@app.post("/characters/", response_model=Character_List_Create)
+def create_character(character: Character_List_Create):
     curr = conn.cursor()
     query = "INSERT INTO CharGenWebsite.character_list (belongs_to) VALUES (%s)"
     try:
