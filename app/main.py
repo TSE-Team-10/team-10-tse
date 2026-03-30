@@ -7,7 +7,7 @@ import app.core.security as security
 from app.model.user import User
 from app.model.character_attributes import Character_Attributes
 from app.model.character_details import Character_Details
-from app.model.character_list import Character_List
+from app.model.character_list import Character_List, Character_List_Create
 from app.model.character_skills import Character_Skills
 
 app = FastAPI()
@@ -210,3 +210,19 @@ def create_user(user: User):
         raise HTTPException(status_code=500, detail="Error occurred while inserting user.")
 
     return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
+
+#Post Character Endpoint
+@app.post("/characters/", response_model=Character_List_Create)
+def create_character(character: Character_List_Create):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_list (belongs_to) VALUES (%s)"
+    try:
+        curr.execute(query,(character.belongs_to))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting character to character_list")
+    
+
+
+    return {"belongs_to": character.belongs_to}
