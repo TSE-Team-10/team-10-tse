@@ -55,16 +55,13 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_attributes` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `strength` INT NOT NULL DEFAULT 0,
-  `dexterity` INT NOT NULL DEFAULT 0,
-  `constitution` INT NOT NULL DEFAULT 0,
-  `intelligence` INT NOT NULL DEFAULT 0,
-  `wisdom` INT NOT NULL DEFAULT 0,
-  `charisma` INT NOT NULL DEFAULT 0,
+  `belongs_to` INT NOT NULL,
+  `attribute` VARCHAR(20) NOT NULL,
+  `value` int NOT NULL DEFAULT 10,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `id` (`id` ASC) VISIBLE,
   CONSTRAINT `belongs_to`
-    FOREIGN KEY (`id`)
+    FOREIGN KEY (`belongs_to`)
     REFERENCES `CharGenWebsite`.`character_list` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)

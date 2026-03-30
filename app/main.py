@@ -213,18 +213,19 @@ def create_user(user: User):
 
 
 #Post Character Attributes
-@app.post("character_attributes", response_model=Character_Attributes)
+@app.post("/character_attributes", response_model=Character_Attributes)
 def create_character_attributes(character_attributes: Character_Attributes):
     curr = conn.cursor()
-    query = "INSERT INTO CharGenWebsite.character_attributes (strength,dexterity,constitution,intelligence,wisdom,charisma) VALUES (%s,%s,%s,%s,%s,%s)"
+    query = "INSERT INTO CharGenWebsite.character_attributes (belongs_to, attribute, value) VALUES (%s,%s,%s)"
     try:
-        curr.execute(query, (character_attributes.strength,character_attributes.dexterity,character_attributes.constitution,character_attributes.intelligence,character_attributes.wisdom,character_attributes.charisma))
+        curr.execute(query, (character_attributes.belongs_to, character_attributes.attribute, character_attributes.value))
         conn.commit()
     except Exception as e:
         conn.rollback()
-        raise HTTPException(status_code=500, detail="Error occured while inserting into the character_attributes table")
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)})")
     
-    return {"strength": character_attributes.strength, "dexterity": character_attributes.dexterity, "constitution": character_attributes.constitution, "intelligence": character_attributes.intelligence, "wisdom": character_attributes.wisdom, "charisma": character_attributes.charisma}
+    return {"belongs_to": character_attributes.belongs_to, "attribute": character_attributes.attribute, "value": character_attributes.value }
+
 #Post Character Endpoint
 @app.post("/characters/", response_model=Character_List_Create)
 def create_character(character: Character_List_Create):
