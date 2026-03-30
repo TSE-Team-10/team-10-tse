@@ -4,11 +4,11 @@ from app.session.dbConn import conn
 from pydantic import BaseModel
 from typing import List
 import app.core.security as security
-from app.model.user import User
-from app.model.character_attributes import Character_Attributes
-from app.model.character_details import Character_Details
-from app.model.character_list import Character_List
-from app.model.character_skills import Character_Skills
+from model.user import User
+from model.character_attributes import Character_Attributes
+from model.character_details import Character_Details
+from model.character_list import Character_List
+from model.character_skills import Character_Skills
 
 app = FastAPI()
 
