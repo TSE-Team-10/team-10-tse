@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
 class Character_Skills(BaseModel):
-    id: int
+    character_id: int
     skill: str
     value: int
