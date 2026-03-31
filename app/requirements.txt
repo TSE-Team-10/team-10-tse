@@ -1,0 +1,6 @@
+fastapi
+pymysql
+uvicorn
+pymysql
+passlib
+argon2_cffi

@@ -55,19 +55,16 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_attributes` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `strength` INT NOT NULL DEFAULT 0,
-  `dexterity` INT NOT NULL DEFAULT 0,
-  `constitution` INT NOT NULL DEFAULT 0,
-  `intelligence` INT NOT NULL DEFAULT 0,
-  `wisdom` INT NOT NULL DEFAULT 0,
-  `charisma` INT NOT NULL DEFAULT 0,
+  `belongs_to` INT NOT NULL,
+  `attribute` VARCHAR(20) NOT NULL,
+  `value` int NOT NULL DEFAULT 10,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `id` (`id` ASC) VISIBLE,
   CONSTRAINT `belongs_to`
-    FOREIGN KEY (`id`)
+    FOREIGN KEY (`belongs_to`)
     REFERENCES `CharGenWebsite`.`character_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -79,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_details` (
   `name` VARCHAR(45) NULL,
   `race` VARCHAR(45) NULL,
   `class` VARCHAR(45) NULL,
-  `level` VARCHAR(45) NOT NULL DEFAULT '1',
+  `level` INT NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
     FOREIGN KEY (`id`)
     REFERENCES `CharGenWebsite`.`character_list` (`id`)
@@ -91,39 +88,23 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `CharGenWebsite`.`character_skills`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`character_skills` (
-  `id` INT NOT NULL,
-  `acrobatics` INT NOT NULL DEFAULT 0,
-  `animal_handling` INT NOT NULL DEFAULT 0,
-  `arcana` INT NOT NULL DEFAULT 0,
-  `athletics` INT NOT NULL DEFAULT 0,
-  `deception` INT NOT NULL DEFAULT 0,
-  `history` INT NOT NULL DEFAULT 0,
-  `insight` INT NOT NULL DEFAULT 0,
-  `intimidation` INT NOT NULL DEFAULT 0,
-  `investigation` INT NOT NULL DEFAULT 0,
-  `medicine` INT NOT NULL,
-  `nature` INT NOT NULL DEFAULT 0,
-  `perception` INT NOT NULL,
-  `religion` INT NOT NULL DEFAULT 0,
-  `sleight_of_hand` INT NOT NULL DEFAULT 0,
-  `stealth` INT NOT NULL DEFAULT 0,
-  `survival` INT NOT NULL DEFAULT 0,
-
-  PRIMARY KEY (`id`),
-  INDEX `belongs_to_idx` (`id` ASC) VISIBLE,
-    FOREIGN KEY (`id`)
-    REFERENCES `CharGenWebsite`.`character_list` (`id`)
+CREATE TABLE `character_skills` (
+  `character_id` INT NOT NULL,
+  `skill` VARCHAR(50) NOT NULL,
+  `value` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`character_id`, `skill`),
+  FOREIGN KEY (`character_id`)
+    REFERENCES `character_list` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION);
 ENGINE = InnoDB;
 
 INSERT INTO `character_list`(
   `id`,
   `belongs_to`)
 VALUES (
-  `0`,
-  `0`)
+  `1`,
+  `1`);
 
 
 

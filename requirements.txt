@@ -1,4 +1,0 @@
-fastapi
-pymysql
-uvicorn
-pymysql
