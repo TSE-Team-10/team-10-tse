@@ -212,7 +212,7 @@ def create_user(user: User):
     return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
 
 #Post Character Details
-@app.post("/character_details/", repsonse_model=Character_Details)
+@app.post("/character_details/", response_model=Character_Details)
 def create_character_details(character_details: Character_Details):
 
     curr = conn.cursor()
