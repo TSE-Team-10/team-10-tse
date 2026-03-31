@@ -211,6 +211,20 @@ def create_user(user: User):
 
     return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
 
+#Post Character Details
+@app.post("/character_details/", response_model=Character_Details)
+def create_character_details(character_details: Character_Details):
+
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_details (id, name, race, class, level) VALUES (%s,%s,%s,%s,%s)"
+    try:
+        curr.execute(query, (character_details.id,character_details.name,character_details.race,character_details.char_class,character_details.level))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting into character_details table")
+    
+    return {"id": character_details.id, "name": character_details.name, "race": character_details.race, "class": character_details.char_class, "level": character_details.level}
 #Post Character Skills Endpoint
 @app.post("/character_skills", response_model=Character_Skills)
 def create_character_skills(character_skills: Character_Skills):
