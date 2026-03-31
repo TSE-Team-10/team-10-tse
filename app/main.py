@@ -217,13 +217,13 @@ def create_character_skills(character_skills: Character_Skills):
     curr = conn.cursor()
     query = "INSERT INTO CharGenWebsite.character_skills (character_id, skill, value) VALUES (%s,%s,%s)"
     try:
-        curr.execute(query, (character_skills.id,character_skills.skill,character_skills.value))
+        curr.execute(query, (character_skills.character_id,character_skills.skill,character_skills.value))
         conn.commit()
     except Exception as e:
         conn.rollback()
         raise HTTPException(status_code=500, detail="Error occured when inserting character skills in character_skills table")
     
-    return {"character_id": character_skills.id, "skill": character_skills.skill, "value": character_skills.value}
+    return {"character_id": character_skills.character_id, "skill": character_skills.skill, "value": character_skills.value}
 
 #Post Character Attributes
 @app.post("/character_attributes", response_model=Character_Attributes)
