@@ -4,11 +4,11 @@ from app.session.dbConn import conn
 from pydantic import BaseModel
 from typing import List
 import app.core.security as security
-from model.user import User
-from model.character_attributes import Character_Attributes
-from model.character_details import Character_Details
-from model.character_list import Character_List
-from model.character_skills import Character_Skills
+from app.model.user import User
+from app.model.character_attributes import Character_Attributes
+from app.model.character_details import Character_Details
+from app.model.character_list import Character_List, Character_List_Create
+from app.model.character_skills import Character_Skills
 
 app = FastAPI()
 
@@ -224,3 +224,33 @@ def create_character_skills(character_skills: Character_Skills):
         raise HTTPException(status_code=500, detail="Error occured when inserting character skills in character_skills table")
     
     return {"character_id": character_skills.id, "skill": character_skills.skill, "value": character_skills.value}
+
+#Post Character Attributes
+@app.post("/character_attributes", response_model=Character_Attributes)
+def create_character_attributes(character_attributes: Character_Attributes):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_attributes (belongs_to, attribute, value) VALUES (%s,%s,%s)"
+    try:
+        curr.execute(query, (character_attributes.belongs_to, character_attributes.attribute, character_attributes.value))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)})")
+    
+    return {"belongs_to": character_attributes.belongs_to, "attribute": character_attributes.attribute, "value": character_attributes.value }
+
+#Post Character Endpoint
+@app.post("/characters/", response_model=Character_List_Create)
+def create_character(character: Character_List_Create):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_list (belongs_to) VALUES (%s)"
+    try:
+        curr.execute(query,(character.belongs_to))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting character to character_list")
+    
+
+
+    return {"belongs_to": character.belongs_to}
