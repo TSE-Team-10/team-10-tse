@@ -1,9 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from datetime import timedelta
+from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordRequestForm
 from app.session.dbConn import conn
 from pydantic import BaseModel
-from typing import List
+from typing import List, Annotated
 import app.core.security as security
+import app.core.deps as deps
+from model.token import Token
 from model.user import User
 from model.character_attributes import Character_Attributes
 from model.character_details import Character_Details
@@ -210,3 +214,21 @@ def create_user(user: User):
         raise HTTPException(status_code=500, detail="Error occurred while inserting user.")
 
     return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
+
+#Login Endpoint
+@app.post("/token")
+async def logging_in_for_access_token(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+) -> Token:
+    user = deps.authenticate_user(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=security.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = security.create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return Token(access_token=access_token, token_type="bearer")
