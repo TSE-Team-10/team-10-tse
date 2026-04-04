@@ -135,43 +135,15 @@ def get_character_skills(character_id: int):
     else:
         return {
             "id": result[0],
-            "acrobatics": result[1],
-            "animal_handling": result[2],
-            "arcana": result[3],
-            "athletics": result[4],
-            "deception": result[5],
-            "history": result[6],
-            "insight": result[7],
-            "intimidation": result[8],
-            "investigation": result[9],
-            "medicine": result[10],
-            "nature": result[11],
-            "perception": result[12],
-            "religion": result[13],
-            "sleight_of_hand": result[14],
-            "stealth": result[15],
-            "survival": result[16]
+            "skill": result[1],
+            "value": result[2]
         }
 
     # Mock response for testing without database connection
     # return {
     #     "id": character_id,
-    #     "acrobatics": 0,
-    #     "animal_handling": 0,
-    #     "arcana": 0,
-    #     "athletics": 0,
-    #     "deception": 0,
-    #     "history": 0,
-    #     "insight": 0,
-    #     "intimidation": 0,
-    #     "investigation": 0,
-    #     "medicine": 0,
-    #     "nature": 0,
-    #     "perception": 0,
-    #     "religion": 0,
-    #     "sleight_of_hand": 0,
-    #     "stealth": 0,
-    #     "survival": 0
+    #     "skill": 0,
+    #     "value": 0,
     # }
 
 
