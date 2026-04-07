@@ -6,6 +6,7 @@
     --light-bg: #071801;
     --border-color: #071801;
     --hover-color: #124403;
+    --place-holder-color: #349C15;
 }
 * {
     margin: 0;
@@ -137,4 +138,30 @@ footer{
 }
 footer p{
     margin:0;
+}
+
+input[type="submit"] {
+    max-width: 200px;
+    background-color:var(--hover-color);
+    color:var(--text-color);
+}
+
+input[type="text"] {
+    background-color:var(--hover-color);
+    color:var(--text-color);
+}
+input[type="text"]::placeholder {
+    color:var(--place-holder-color);
+}
+
+input[type="password"] {
+    background-color:var(--hover-color);
+    color:var(--text-color);
+}
+input[type="password"]::placeholder {
+    color:var(--place-holder-color);
+}
+
+a{
+    color:var(--text-color)
 }
