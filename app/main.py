@@ -7,12 +7,12 @@ from pydantic import BaseModel
 from typing import List, Annotated
 import app.core.security as security
 import app.core.deps as deps
-from model.token import Token
-from model.user import User
-from model.character_attributes import Character_Attributes
-from model.character_details import Character_Details
-from model.character_list import Character_List
-from model.character_skills import Character_Skills
+from app.model.token import Token
+from app.model.user import User
+from app.model.character_attributes import Character_Attributes
+from app.model.character_details import Character_Details
+from app.model.character_list import Character_List, Character_List_Create
+from app.model.character_skills import Character_Skills
 
 app = FastAPI()
 
@@ -139,43 +139,15 @@ def get_character_skills(character_id: int):
     else:
         return {
             "id": result[0],
-            "acrobatics": result[1],
-            "animal_handling": result[2],
-            "arcana": result[3],
-            "athletics": result[4],
-            "deception": result[5],
-            "history": result[6],
-            "insight": result[7],
-            "intimidation": result[8],
-            "investigation": result[9],
-            "medicine": result[10],
-            "nature": result[11],
-            "perception": result[12],
-            "religion": result[13],
-            "sleight_of_hand": result[14],
-            "stealth": result[15],
-            "survival": result[16]
+            "skill": result[1],
+            "value": result[2]
         }
 
     # Mock response for testing without database connection
     # return {
     #     "id": character_id,
-    #     "acrobatics": 0,
-    #     "animal_handling": 0,
-    #     "arcana": 0,
-    #     "athletics": 0,
-    #     "deception": 0,
-    #     "history": 0,
-    #     "insight": 0,
-    #     "intimidation": 0,
-    #     "investigation": 0,
-    #     "medicine": 0,
-    #     "nature": 0,
-    #     "perception": 0,
-    #     "religion": 0,
-    #     "sleight_of_hand": 0,
-    #     "stealth": 0,
-    #     "survival": 0
+    #     "skill": 0,
+    #     "value": 0,
     # }
 
 
@@ -232,3 +204,82 @@ async def logging_in_for_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type="bearer")
+  
+#Post Character Details
+@app.post("/character_details/", response_model=Character_Details)
+def create_character_details(character_details: Character_Details):
+
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_details (id, name, race, class, level) VALUES (%s,%s,%s,%s,%s)"
+    try:
+        curr.execute(query, (character_details.id,character_details.name,character_details.race,character_details.char_class,character_details.level))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting into character_details table")
+    
+    return {"id": character_details.id, "name": character_details.name, "race": character_details.race, "class": character_details.char_class, "level": character_details.level}
+#Post Character Skills Endpoint
+@app.post("/character_skills", response_model=Character_Skills)
+def create_character_skills(character_skills: Character_Skills):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_skills (character_id, skill, value) VALUES (%s,%s,%s)"
+    try:
+        curr.execute(query, (character_skills.character_id,character_skills.skill,character_skills.value))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured when inserting character skills in character_skills table")
+    
+    return {"character_id": character_skills.character_id, "skill": character_skills.skill, "value": character_skills.value}
+
+#Post Character Attributes
+@app.post("/character_attributes", response_model=Character_Attributes)
+def create_character_attributes(character_attributes: Character_Attributes):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_attributes (belongs_to, attribute, value) VALUES (%s,%s,%s)"
+    try:
+        curr.execute(query, (character_attributes.belongs_to, character_attributes.attribute, character_attributes.value))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)})")
+    
+    return {"belongs_to": character_attributes.belongs_to, "attribute": character_attributes.attribute, "value": character_attributes.value }
+
+#Post Character Endpoint
+@app.post("/characters/", response_model=Character_List_Create)
+def create_character(character: Character_List_Create):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_list (belongs_to) VALUES (%s)"
+    try:
+        curr.execute(query,(character.belongs_to))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting character to character_list")
+    
+
+
+    return {"belongs_to": character.belongs_to}
+
+# Delete Character by Character ID Endpoint
+@app.delete("/character/{character_id}")
+def delete_character(character_id: int):
+    if get_character_by_id(character_id):
+        curr = conn.cursor()
+        query = "DELETE FROM CharGenWebsite.character_list WHERE id = %s"
+        curr.execute(query, (character_id))
+        return f"Character {character_id} deleted"
+    else:
+        return "Character not found"
+    
+def get_character_by_id(character_id: int):
+    curr = conn.cursor()
+    query = "SELECT belongs_to FROM CharGenWebsite.character_list WHERE id = %s"
+    curr.execute(query, (character_id))
+    result = curr.fetchone()
+    if len(result) == 0:
+        raise HTTPException(status_code=404, detail="Character not found")
+    else:
+        return True
