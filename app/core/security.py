@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 
 from passlib.context import CryptContext
 import jwt
-from app.main import get_user
+from app.api.user import get_user
 
 hashing = CryptContext(schemes=["argon2"], deprecated="auto")
 
