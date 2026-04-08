@@ -1,7 +1,7 @@
 from __future__ import annotations
 from sqlalchemy import String, Integer
 from sqlalchemy.orm import Mapped, mapped_column, ForeignKey
-from app.model.base import Base
+from app.db.base import Base
 
 class Character_Skills(Base):
     __tablename__: str = "character_skills"
