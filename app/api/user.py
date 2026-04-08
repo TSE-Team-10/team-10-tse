@@ -1,18 +1,21 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 from app.schema.user import User
+from app.crud.user import get_user_by_email
+from app.db.session import get_db
 router = APIRouter(prefix="/user", tags=["user"])
 
 # Get User Endpoint
 @router.get("/{email}", response_model=User)
-def get_user(email: str):
-    curr = conn.cursor()
-    query = "SELECT * FROM CharGenWebsite.user WHERE email = %s"
-    curr.execute(query, (email,))
-    result = curr.fetchone()
-    if len(result) == 0:
+async def get_user(email: str,
+            db: Session = Depends(get_db)):
+
+    user = await get_user_by_email(db, email)
+
+    if not user:
         raise HTTPException(status_code=404, detail="User not found")
     else:
-        return {"alias": result[0], "password_hash": result[1], "email": result[2]}
+        return user
 
 #Post User Endpoint
 @router.post("/", response_model=User)
