@@ -1,8 +1,9 @@
 from fastapi import FastAPI, APIRouter, Depends
 from sqlalchemy.orm import Session
+from app.db.session import get_db
 from app.schema.character_attributes import Character_Attributes
 from app.crud.character_attributes import get_attributes_by_id, create_attributes
-from app.db.session import get_db
+
 
 router = APIRouter(prefix="/character_attributes", tags=["attributes"])
 # Get Character Attributes by Character ID Endpoint

@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from app.model.character_attributes import Character_Attributes as AttributeModel
 from app.schema.character_attributes import Character_Attributes
-from app.core.security import getPasswordHash
+
 
 async def get_attributes_by_id(db: Session, id_in: int):
     return db.query(AttributeModel).filter(AttributeModel.belongs_to == id_in).all()

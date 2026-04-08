@@ -6,7 +6,7 @@ from app.db.base import Base
 class Character_Skills(Base):
     __tablename__: str = "character_skills"
 
-    character_id_: Mapped[int] = mapped_column(Integer, 
+    character_id: Mapped[int] = mapped_column(Integer, 
                                                 ForeignKey("character_list.id"),
                                                 nullable=False,
                                                 index=True,

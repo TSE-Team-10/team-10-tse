@@ -3,7 +3,7 @@ from sqlalchemy import String, Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from app.db.base import Base
 
-class Character_Attributes(Base):
+class Character_Details(Base):
     __tablename__: str = "character_details"
 
     id_: Mapped[int] = mapped_column("id", Integer,

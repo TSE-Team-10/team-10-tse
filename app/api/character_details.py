@@ -1,36 +1,24 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.db.session import get_db
 from app.schema.character_details import Character_Details
-
+from app.crud.character_details import get_details_by_id, create_details
 router = APIRouter(prefix="/character_details", tags=["details"])
+
+
 # Get Character Details by Character ID Endpoint
 @router.get("/{character_id}", response_model=Character_Details)
-def get_character_details(character_id: int):
-    curr = conn.cursor()
-    query = "SELECT * FROM CharGenWebsite.character_details WHERE id = %s"
-    curr.execute(query, (character_id,))
-    result = curr.fetchone()
-    if len(result) == 0:
-        raise HTTPException(status_code=404, detail="Character not found")
-    else:
-        return {
-            "id": result[0],
-            "name": result[1],
-            "race": result[2],
-            "char_class": result[3],
-            "level": result[4]
-        }
+async def get_character_details(character_id: int,
+                            db: Session = Depends(get_db)):
+    response = await get_details_by_id(db, character_id)
+    return response
 
 #Post Character Details
 @router.post("/", response_model=Character_Details)
-def create_character_details(character_details: Character_Details):
+async def create_character_details(character_details: Character_Details,
+                            db: Session = Depends(get_db)):
 
-    curr = conn.cursor()
-    query = "INSERT INTO CharGenWebsite.character_details (id, name, race, class, level) VALUES (%s,%s,%s,%s,%s)"
-    try:
-        curr.execute(query, (character_details.id,character_details.name,character_details.race,character_details.char_class,character_details.level))
-        conn.commit()
-    except Exception as e:
-        conn.rollback()
-        raise HTTPException(status_code=500, detail="Error occured while inserting into character_details table")
-    
-    return {"id": character_details.id, "name": character_details.name, "race": character_details.race, "class": character_details.char_class, "level": character_details.level}
+
+    response = await create_details(db, character_details)
+
+    return response 
