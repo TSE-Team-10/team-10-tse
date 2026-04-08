@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter
-from app.model.user import User
+from app.schema.user import User
 router = APIRouter(prefix="/user", tags=["user"])
 
 # Get User Endpoint

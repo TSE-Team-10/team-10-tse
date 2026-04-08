@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter
-from app.model.character_skills import Character_Skills
+from app.schema.character_skills import Character_Skills
 
 router = APIRouter(prefix="/character_skills", tags=["skills"])
 

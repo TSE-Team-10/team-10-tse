@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter
-from app.model.character_attributes import Character_Attributes
+from app.schema.character_attributes import Character_Attributes
 
 router = APIRouter(prefix="/character_attributes", tags=["attributes"])
 # Get Character Attributes by Character ID Endpoint

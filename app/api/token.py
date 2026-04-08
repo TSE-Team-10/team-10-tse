@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, status, Depends
 from typing import Annotated
-from app.model.token import Token
+from app.schema.token import Token
 from fastapi.security import OAuth2PasswordRequestForm
 
 router = APIRouter(prefix="/token", tags=["token"])
