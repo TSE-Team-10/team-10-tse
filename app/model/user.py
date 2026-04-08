@@ -10,7 +10,7 @@ class User(Base):
                                         nullable=False,
                                         index=True)
 
-    password_hash: Mapped[str] = mapped_column(String(45),
+    password_hash: Mapped[str] = mapped_column(String(255),
                                                 nullable=False)
 
     email: Mapped[str] = mapped_column(String(45), 

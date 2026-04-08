@@ -2,7 +2,9 @@ from fastapi import FastAPI, APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.schema.user import User
 from app.crud.user import get_user_by_email
+from app.crud.user import create_user as crud_create_user
 from app.db.session import get_db
+
 router = APIRouter(prefix="/user", tags=["user"])
 
 # Get User Endpoint
@@ -19,17 +21,8 @@ async def get_user(email: str,
 
 #Post User Endpoint
 @router.post("/", response_model=User)
-def create_user(user: User):
-    # Hash the password before storing it in the database
-    user.password_hash = security.getPasswordHash(user.password_hash)
-    # Database insertion
-    curr = conn.cursor()
-    query = "INSERT INTO CharGenWebsite.user (alias, password_hash, email) VALUES (%s, %s, %s)"
-    try:
-        curr.execute(query, (user.alias, user.password_hash, user.email))
-        conn.commit()
-    except Exception as e:
-        conn.rollback()
-        raise HTTPException(status_code=500, detail="Error occurred while inserting user.")
+async def create_user(user: User,
+                db: Session = Depends(get_db)):
 
-    return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
+    response = await crud_create_user(db, user)
+    return response
