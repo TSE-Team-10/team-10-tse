@@ -96,15 +96,15 @@ CREATE TABLE `character_skills` (
   FOREIGN KEY (`character_id`)
     REFERENCES `character_list` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 INSERT INTO `character_list`(
   `id`,
   `belongs_to`)
 VALUES (
-  `1`,
-  `1`);
+  1,
+  1);
 
 
 

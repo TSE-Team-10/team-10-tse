@@ -1,4 +1,7 @@
-
-/__pycache__
+__pycache__/
+*.py[cod]
+venv/
+.env/
 *.pyc
-__pycache__/dbConn.cpython-313.pyc
+.venv/
+launch.json

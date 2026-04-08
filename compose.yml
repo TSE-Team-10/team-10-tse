@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - .:/app:z
+    environment:
+      - PYTHONPATH=/app/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  nginx_server:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      - fastapi
+    networks:
+      - app-network
+
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: tse10
+      MYSQL_DATABASE: CharGenWebsite
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user10
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./db_docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: user
+      PMA_PASSWORD: user10
+    ports:
+      - "8082:80"
+    depends_on:
+      - mariadb
+    networks:
+      - app-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  app-network:
+    driver: bridge
