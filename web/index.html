@@ -8,47 +8,22 @@
     <title>landing page</title>
 </head>
 
+
 <body>
-<header>
-    <h1>Welcome to the [PROJECT] Website V0.1</h1>
-    <nav>
-        <a href="index.html">Main</a>
-        <a href="about.html">About</a>
-    </nav>
-</header>
-
-<button onclick="get_char_by_id()">Load Data</button>
-
-
-<script>
-    //helloworld
-    function helloworld()
-    {
-        console.log("HelloWorld");
-    }
-
-
-    //get character by id
-    //test function to ensure connection to back-end
-    //will output first entry to console
-    function get_char_by_id(id = 1)
-    {
-
-        fetch(`http://127.0.0.1:8000/character/${id}`)
-        .then(response => response.json())
-        .then(data => {console.log("name:", data.name);
-                       console.log("user:",data.belongs_to);})
-        .catch(error => console.error("Error: ", error));
-    }
-    
-    helloworld()
-</script>
-
 <main>
-<p>Welcome to the jungle</p>
+<div id="terminal">
+
+
+</div>
+
+    <div class="input-prompt">
+        <span class="prompt">></span>
+        <input id="commandInput">
+    </div>
+
+<script type="module" src="js/app.js"></script>
+
+
 </main>
-<footer>
-    <p>&copy; 2026 TSE10. All rights Reserved</p>
-</footer>
 </body>
-</html>
+
