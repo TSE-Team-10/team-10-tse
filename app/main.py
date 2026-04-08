@@ -1,12 +1,8 @@
-from datetime import timedelta
 from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from app.session.dbConn import conn
-from pydantic import BaseModel
-from typing import List, Annotated
 import app.core.security as security
 import app.core.deps as deps
-
+from app.db.init_db import init_db
 from app.api import character_attributes, character_details, character_list, character_skills, user, token
 
 app = FastAPI()
