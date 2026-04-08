@@ -1,6 +1,6 @@
 from __future__ import annotations
-from sqlalchemy import String, Integer
-from sqlalchemy.orm import Mapped, mapped_column, ForeignKey
+from sqlalchemy import String, Integer, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
 from app.db.base import Base
 
 class Character_List(Base):
@@ -12,6 +12,7 @@ class Character_List(Base):
                                         primary_key=True)
 
     belongs_to: Mapped[str] = mapped_column(String(50),
-                                        nullable=False,
-                                        ForeignKey("user.email"))
+                                            ForeignKey("user.email"),
+                                            nullable=False,
+                                            )
 
