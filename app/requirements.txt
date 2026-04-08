@@ -6,3 +6,4 @@ passlib
 sqlalchemy
 pyjwt
 argon2_cffi
+python-multipart
