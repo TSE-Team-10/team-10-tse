@@ -5,9 +5,9 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jwt.exceptions import InvalidTokenError
 from pydantic import BaseModel
 
-from app.core.security import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES,authenticate_user, create_access_token
-from app.model.user import User
-from app.model.token import TokenData, Token
+from app.core.security import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
+from app.schema.user import User
+from app.schema.token import TokenData, Token
 from app.api.user import get_user
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
