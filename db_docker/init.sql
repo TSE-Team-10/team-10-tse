@@ -22,7 +22,7 @@ USE `CharGenWebsite` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `CharGenWebsite`.`user` (
   `alias` VARCHAR(45) NOT NULL,
-  `password_hash` VARCHAR(255) NOT NULL,
+  `password_hash` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL UNIQUE,
   PRIMARY KEY (`email`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,

@@ -1,9 +1,18 @@
+from datetime import timedelta
 from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordRequestForm
+from app.session.dbConn import conn
+from pydantic import BaseModel
+from typing import List, Annotated
 import app.core.security as security
 import app.core.deps as deps
-from app.db.init_db import init_db
-from app.api import character_attributes, character_details, character_list, character_skills, user, token
+from app.model.token import Token
+from app.model.user import User
+from app.model.character_attributes import Character_Attributes
+from app.model.character_details import Character_Details
+from app.model.character_list import Character_List, Character_List_Create
+from app.model.character_skills import Character_Skills
 
 app = FastAPI()
 
@@ -29,9 +38,248 @@ app.add_middleware(
 def root():
     return {"message": "Welcome to the Character Generator API!"}
 
-app.include_router(character_attributes.router)
-app.include_router(character_details.router)
-app.include_router(character_skills.router)
-app.include_router(character_list.router)
-app.include_router(user.router)
-app.include_router(token.router)
+
+# Get User Endpoint
+@app.get("/user/{email}", response_model=User)
+def get_user(email: str):
+    curr = conn.cursor()
+    query = "SELECT * FROM CharGenWebsite.user WHERE email = %s"
+    curr.execute(query, (email,))
+    result = curr.fetchone()
+    if len(result) == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    else:
+        return {"alias": result[0], "password_hash": result[1], "email": result[2]}
+
+    # Mock response for testing without database connection
+    # return {"alias": "test", "password_hash": "test", "email": email}
+
+# Get Characters by UUID Endpoint
+@app.get("/characters/{user_email}", response_model=List[Character_List])
+def get_character_by_user_email(user_email: str):
+    curr = conn.cursor()
+    query = "SELECT id, belongs_to FROM CharGenWebsite.character_list WHERE belongs_to = %s"
+    curr.execute(query, (user_email,))
+    results = curr.fetchall()
+    if len(results) == 0:
+        raise HTTPException(status_code=404, detail="No characters found for this user")
+    else:
+        return [{"id": result[0], "belongs_to": result[1]} for result in results]
+
+    # Mock response for testing without database connection
+    # return [{"id": 1, "belongs_to": user_email}, {"id": 2, "belongs_to": user_email}]
+
+# Get Character Attributes by Character ID Endpoint
+@app.get("/character_attributes/{character_id}", response_model=Character_Attributes)
+def get_character_attributes(character_id: int):
+    curr = conn.cursor()
+    query = "SELECT * FROM CharGenWebsite.character_attributes WHERE id = %s"
+    curr.execute(query, (character_id,))
+    result = curr.fetchone()
+    if len(result) == 0:
+        raise HTTPException(status_code=404, detail="Character not found")
+    else:
+        return {
+            "id": result[0],
+            "strength": result[1],
+            "dexterity": result[2],
+            "constitution": result[3],
+            "intelligence": result[4],
+            "wisdom": result[5],
+            "charisma": result[6]
+        }
+
+    # Mock response for testing without database connection
+    # return {
+    #     "id": character_id,
+    #     "strength": 10,
+    #     "dexterity": 10,
+    #     "constitution": 10,
+    #     "intelligence": 10,
+    #     "wisdom": 10,
+    #     "charisma": 10
+    # }
+
+# Get Character Details by Character ID Endpoint
+@app.get("/character_details/{character_id}", response_model=Character_Details)
+def get_character_details(character_id: int):
+    curr = conn.cursor()
+    query = "SELECT * FROM CharGenWebsite.character_details WHERE id = %s"
+    curr.execute(query, (character_id,))
+    result = curr.fetchone()
+    if len(result) == 0:
+        raise HTTPException(status_code=404, detail="Character not found")
+    else:
+        return {
+            "id": result[0],
+            "name": result[1],
+            "race": result[2],
+            "char_class": result[3],
+            "level": result[4]
+        }
+
+    # Mock response for testing without database connection
+    # return {
+    #     "id": character_id,
+    #     "name": "Test Character",
+    #     "race": "Human",
+    #     "char_class": "Fighter",
+    #     "level": "1"
+    # }
+
+# Get Character Skills by Character ID Endpoint
+@app.get("/character_skills/{character_id}", response_model=Character_Skills)
+def get_character_skills(character_id: int):
+    curr = conn.cursor()
+    query = "SELECT * FROM CharGenWebsite.character_skills WHERE id = %s"
+    curr.execute(query, (character_id,))
+    result = curr.fetchone()
+    if len(result) == 0:
+        raise HTTPException(status_code=404, detail="Character not found")
+    else:
+        return {
+            "id": result[0],
+            "skill": result[1],
+            "value": result[2]
+        }
+
+    # Mock response for testing without database connection
+    # return {
+    #     "id": character_id,
+    #     "skill": 0,
+    #     "value": 0,
+    # }
+
+
+
+# Get Characters by UUID Endpoint
+@app.get("/character/{id_in}", response_model=Character_List)
+def get_character_by_user_email(id_in:int):
+
+
+        curr = conn.cursor()
+        query = "SELECT id, belongs_to FROM CharGenWebsite.character_list WHERE id = %s"
+        curr.execute(query, id_in)
+        result = curr.fetchone()
+        if result is None:
+            raise HTTPException(status_code=404, detail="No characters found with this id.")
+        else:
+            return {"id": result[0], "belongs_to": result[1]}
+
+        # Mock response for testing without database connection
+        #return {"id": 0, "belongs_to": "JohnnyTest@Test.com"}
+
+
+#Post User Endpoint
+@app.post("/user/", response_model=User)
+def create_user(user: User):
+    # Hash the password before storing it in the database
+    user.password_hash = security.getPasswordHash(user.password_hash)
+    # Database insertion
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.user (alias, password_hash, email) VALUES (%s, %s, %s)"
+    try:
+        curr.execute(query, (user.alias, user.password_hash, user.email))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occurred while inserting user.")
+
+    return {"alias": user.alias, "password_hash": user.password_hash, "email": user.email}
+
+#Login Endpoint
+@app.post("/token")
+async def logging_in_for_access_token(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+) -> Token:
+    user = deps.authenticate_user(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=security.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = security.create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return Token(access_token=access_token, token_type="bearer")
+  
+#Post Character Details
+@app.post("/character_details/", response_model=Character_Details)
+def create_character_details(character_details: Character_Details):
+
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_details (id, name, race, class, level) VALUES (%s,%s,%s,%s,%s)"
+    try:
+        curr.execute(query, (character_details.id,character_details.name,character_details.race,character_details.char_class,character_details.level))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting into character_details table")
+    
+    return {"id": character_details.id, "name": character_details.name, "race": character_details.race, "class": character_details.char_class, "level": character_details.level}
+#Post Character Skills Endpoint
+@app.post("/character_skills", response_model=Character_Skills)
+def create_character_skills(character_skills: Character_Skills):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_skills (character_id, skill, value) VALUES (%s,%s,%s)"
+    try:
+        curr.execute(query, (character_skills.character_id,character_skills.skill,character_skills.value))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured when inserting character skills in character_skills table")
+    
+    return {"character_id": character_skills.character_id, "skill": character_skills.skill, "value": character_skills.value}
+
+#Post Character Attributes
+@app.post("/character_attributes", response_model=Character_Attributes)
+def create_character_attributes(character_attributes: Character_Attributes):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_attributes (belongs_to, attribute, value) VALUES (%s,%s,%s)"
+    try:
+        curr.execute(query, (character_attributes.belongs_to, character_attributes.attribute, character_attributes.value))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)})")
+    
+    return {"belongs_to": character_attributes.belongs_to, "attribute": character_attributes.attribute, "value": character_attributes.value }
+
+#Post Character Endpoint
+@app.post("/characters/", response_model=Character_List_Create)
+def create_character(character: Character_List_Create):
+    curr = conn.cursor()
+    query = "INSERT INTO CharGenWebsite.character_list (belongs_to) VALUES (%s)"
+    try:
+        curr.execute(query,(character.belongs_to))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail="Error occured while inserting character to character_list")
+    
+
+
+    return {"belongs_to": character.belongs_to}
+
+# Delete Character by Character ID Endpoint
+@app.delete("/character/{character_id}")
+def delete_character(character_id: int):
+    if get_character_by_id(character_id):
+        curr = conn.cursor()
+        query = "DELETE FROM CharGenWebsite.character_list WHERE id = %s"
+        curr.execute(query, (character_id))
+        return f"Character {character_id} deleted"
+    else:
+        return "Character not found"
+    
+def get_character_by_id(character_id: int):
+    curr = conn.cursor()
+    query = "SELECT belongs_to FROM CharGenWebsite.character_list WHERE id = %s"
+    curr.execute(query, (character_id))
+    result = curr.fetchone()
+    if len(result) == 0:
+        raise HTTPException(status_code=404, detail="Character not found")
+    else:
+        return True
