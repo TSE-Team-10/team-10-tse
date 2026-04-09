@@ -1,5 +1,8 @@
 let terminal;
 let input;
+let user;
+let pass;
+
 function main()
 {
     terminal = document.getElementById("terminal");
@@ -32,8 +35,13 @@ function runCommand(cmd) {
 
     switch(cmd.toLowerCase()) {
 
+        case "login":
+            login()
+            break;
+
         case "help":
             addLine("Available commands:");
+            addLine("login - logs into account");
             addLine("help - show commands");
             addLine("about - about this interface");
             addLine("clear - clear terminal");
@@ -59,6 +67,15 @@ function welcome(){
     terminal.innerHTML = 
     '<div class="line">Welcome to the Command Interface</div>'
     + '<div class="line">Type <b>help</b> to see commands.</div>' ;
+
+}
+
+function login(){
+    addLine("Enter username: ");
+    user = input.value.trim();
+    addLine("Enter password: ");
+    pass = input.value.trim();
+    //finish when back hoem
 
 }
 
