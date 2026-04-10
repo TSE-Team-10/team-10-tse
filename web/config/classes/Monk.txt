@@ -1,0 +1,12 @@
+"Hit Dice": 1d8
+"HP level 1": 8
+"HP at higher levels": 1d8
+"Armor": None
+"Weapons": Simple Weapons, Shortswords
+"Tools": One Type of Artisan Tools, One Type of Musical Instruments
+"Savings Throw": Strength, Dexterity
+"Skiils": Acrobatics, Athletics, History, Insight, Religion, Stealth
+"Starting Equipment (1)": Shortsword, Any Simple Weapon
+"Starting Equipment (2)": Dungoneer's Pack, Explorer's Pack
+"Starting Equipment": 10 Darts
+"Features": Unarmoured Defense, Martial Arts
