@@ -1,0 +1,12 @@
+"Hit Dice": 1d8
+"HP level 1": 8
+"HP at higher levels": 1d8
+"Armor": Light Armor, Medium Armor, Sheilds
+"Weapons": All Simple weapons
+"Tools": None
+"Savings Throw": Wisdom, Charisma
+"Skiils": History, Insight, Medicine, Persuasion, Religion
+"Starting Weapons (1)": Mace, Warhammer
+"Starting Weapons (2)": Scale Mail, Leather Armor, Chain Mail
+"Equipment": Shield, Holy Symbol
+"Features": Spell Casting, Divine Domain
