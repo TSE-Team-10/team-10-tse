@@ -1,0 +1,13 @@
+"Hit Dice": 1d6
+"HP level 1": 6
+"HP at higher levels": 1d6
+"Armor": None
+"Weapons": Dagger, Darts, Slings, Quarterstaffs, Light Crossbows
+"Tools": None
+"Savings Throw": Constitution, Charisma
+"Skiils": Arcana, Deception, Intimidation, Persuasion, Religion
+"Starting Equipment (1)": Light Crossbow and 20 Bolts, Any Simple Weapon
+"Starting Equipment (2)": Component Pouch, Arcane Focus
+"Starting Equipment (3)": Dungoneer's Pack, Explorer's Pack
+"Starting Equipment": Two Daggers
+"Features": Spell Casting, Sorcerous Origin
