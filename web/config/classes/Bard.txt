@@ -1,0 +1,12 @@
+"Hit Dice": 1d8
+"HP level 1": 8
+"HP at higher levels": 1d8
+"Armor": Light Armor
+"Weapons": Simple weapons, hand crossbows, longswords, rapiers, shortswords
+"Tools": Three Musical Instruments of your choice
+"Savings Throw": Dexterity, Charisma
+"Skiils": Choose any three
+"Starting Weapons (1)": Rapier, Any Simple Weapon
+"Starting Weapons (2)": Diplomats Pack, Entertainers Pack
+"Equipment": Leather Armor, Dagger
+"Features": Spell Casting, Bardic Inspiration
