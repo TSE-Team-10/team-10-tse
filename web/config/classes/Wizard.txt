@@ -1,0 +1,13 @@
+"Hit Dice": 1d6
+"HP level 1": 6
+"HP at higher levels": 1d6
+"Armor": None
+"Weapons": Daggers, Darts, Slings, Quarterstaffs, Light Crossbows
+"Tools": None
+"Savings Throw": Wisdom, Intelligence
+"Skiils": Arcana, History, Insight, Investigation, Medicine, Religion
+"Starting Equipment (1)": Quarterstaff, Dagger
+"Starting Equipment (2)": Component Pouch, Arcane Focus
+"Starting Equipment (3)": Scholar's Pack, Explorer's Pack
+"Starting Equipment": Spellbook
+"Features": Spell Casting, Arcane Recovery
