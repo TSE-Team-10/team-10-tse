@@ -1,0 +1,13 @@
+"Hit Dice": 1d10
+"HP level 1": 10
+"HP at higher levels": 1d10
+"Armor": Light Armor, Medium Armor, Shields
+"Weapons": Simple Weapons, Martial Weapons
+"Tools": None
+"Savings Throw": Strength, Dexterity
+"Skiils": Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, Survival
+"Starting Equipment (1)": Scale mail, Leather Armor
+"Starting Equipment (2)": Two Shortswords, Two Simple Melee Weapon
+"Starting Equipment (3)": Dungoneer's Pack, Explorer's Pack
+"Starting Equipment": Longbow, 20 Arrows
+"Features": Favoured Enemy, Natural Explorer
