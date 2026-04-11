@@ -43,7 +43,7 @@ function addLine(text) {
     terminal.insertBefore(div, terminal.lastElementChild);
 }
 
-function runCommand(cmd) {
+async function runCommand(cmd) {
 
     let cmdArray = cmd.split(" ");
 
@@ -90,13 +90,15 @@ function runCommand(cmd) {
             break;
         case "list":
         
-        if (!character_list)
+        if (!character_list.length)
             {
-                character_list = loadCharacterList(user);
+                character_list = await loadCharacterList(user);
             }
-            for (let i=0; i<character_list.length; i++)
-            {addLine(i + ". " + character_list[i].name + " | " + character_list[i].class + " | " + character_list[i].race + " | level " + character_list[i].level)}
         
+        addLine("ID | Name | Class | Race | Level");
+        for (let i=0; i<character_list.length; i++)
+        {addLine(i + "| " + character_list[i].details.name + " | " + character_list[i].details.class_ + " | " + character_list[i].details.race + " | level " + character_list[i].details.level);}
+        break;
         default:
             addLine("Command not found: " + cmd);
 

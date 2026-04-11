@@ -34,12 +34,12 @@ export async function login(user, pass)
 export async function loadCharacterList(user)
 {
         console.log("user value:", user);
-    const response = await fetch(API_URL + "/character_list/user" + user);
+    const response = await fetch(API_URL + "/character_list/user/" + user);
 
     if (!response.ok)
     {console.log("fugg");}
     else
     {console.log("yippee");}
 
-    return response;
+    return response.json();
 }
