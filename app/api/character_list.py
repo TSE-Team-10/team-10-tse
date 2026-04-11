@@ -28,6 +28,7 @@ async def get_character_by_id(id_in:int,
 async def create_character(character: Character_List_Create,
                     db: Session = Depends(get_db)):
 
+    #TODO: fix to include all character fields
     response = await create_new_character(db, character)
     return response
 

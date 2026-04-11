@@ -3,6 +3,7 @@ const API_URL = 'http://127.0.0.1:8000';
 
 export async function insert_new_char_db(user)
 {
+    //TODO: fix to include all character details
     console.log("user value:", user);
     const response = await fetch(API_URL + "/character_list/",
     {

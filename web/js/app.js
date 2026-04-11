@@ -9,9 +9,9 @@ export let state = "main";
 let character_list = [];
 
 let character_temp = {
-    "Name": null,
-    "Race": null,
-    "class": null,
+    "name": null,
+    "race": null,
+    "class_": null,
     
 };
 
@@ -47,7 +47,7 @@ async function runCommand(cmd) {
 
     let cmdArray = cmd.split(" ");
 
-
+    //TODO: separate into own subfunction
     if (state === "main"){
     switch(cmdArray[0].toLowerCase()) 
     {
@@ -73,7 +73,7 @@ async function runCommand(cmd) {
         case "new":
             state = "chargen_1";
             console.log("switching state to:", state)
-            chargen(user);
+            clearConsole();
             break;
 
         case "login":
@@ -86,6 +86,7 @@ async function runCommand(cmd) {
             {addLine("Please insert a password");
                 break;
             }
+            // TODO: replace with login chain
             login(cmdArray[1], cmdArray[2]);
             break;
         case "list":
@@ -99,21 +100,61 @@ async function runCommand(cmd) {
         for (let i=0; i<character_list.length; i++)
         {addLine(i + "| " + character_list[i].details.name + " | " + character_list[i].details.class_ + " | " + character_list[i].details.race + " | level " + character_list[i].details.level);}
         break;
+
         default:
             addLine("Command not found: " + cmd);
 
     }
     }
 
-    if (state === "chargen_1")
+    //TODO: separate into own subfunction
+    else if (state === "chargen_1")
     {
 
 
-        switch(cmdArray[0].toLowercase())
+        switch(cmdArray[0].toLowerCase())
         {
+            case "help":
+                addLine("name (name) - add name to character");
+                addLine("class (class) - add class to character");
+                addLine("race (race) - add race to character");
+                addLine("save - commit character")
+                addLine("exit - back to main");
+
+                break;
+
+            case "name":
+                if (!cmdArray[1])
+                {addLine("Provide a name for your character");}
+
+                cmdArray.splice(0, 1);
+                character_temp.name = cmdArray.join(" ");
+                clearConsole();
+                break;
+            
+            case "class":
+                //TODO: add class logic
+                break;
+
+            case "race":
+                //TODO: add race logic
+                break;
+
+            case "save":
+                chargen(user, character_temp);
+                state = "main";
+                console.log ("switching state to:", main);
+
             case "exit":
             state = "main";
-            console.log ("switching state to:", state)
+            console.log ("switching state to:", state);
+            character_temp = {
+                "name": null,
+                "race": null,
+                "class": null,
+                
+            };
+            clearConsole();
             break;
 
             default:
@@ -125,11 +166,17 @@ async function runCommand(cmd) {
 }
 
 function showStaticText(){
-
+    //TODO: separate into subfunctions
     if (state === "main"){
-        terminal.innerHTML = 
-        '<div class="line">Welcome to the Command Interface</div>'
-        + '<div class="line">Type <b>help</b> to see commands.</div>' ;
+        addLine("Welcome to the Character Generator");
+        addLine("(Type help to see commands.)");
+    }
+
+    if (state === "chargen_1"){
+
+        addLine("Creating character:");
+        addLine("Name | Class | Race | Level");
+        addLine(character_temp.name + " | " + character_temp.class_ + " | " + character_temp.race + " | level " + character_temp.level);
     }
 }
 
