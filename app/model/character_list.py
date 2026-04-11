@@ -1,6 +1,6 @@
 from __future__ import annotations
 from sqlalchemy import String, Integer, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 class Character_List(Base):
@@ -16,3 +16,4 @@ class Character_List(Base):
                                             nullable=False,
                                             )
 
+    details = relationship("Character_Details", uselist=False)

@@ -2,13 +2,13 @@ from fastapi import FastAPI, APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 
-from app.schema.character_list import Character_List, Character_List_Create
+from app.schema.character_list import Character_List, Character_List_Create, Character_List_Detailed
 from app.crud.character_list import get_character_by_id, get_character_by_user
 from app.crud.character_list import create_new_character, delete_character_by_id
 router = APIRouter(prefix="/character_list", tags=["character list"])
 
 #Get Characters by UUID Endpoint
-@router.get("/{user_email}", response_model=list[Character_List])
+@router.get("/user/{user_email}", response_model=list[Character_List_Detailed])
 async def get_character_by_user_email(user_email: str,
                                 db: Session = Depends(get_db)):
 
@@ -24,7 +24,7 @@ async def get_character_by_id(id_in:int,
     return response
 
 #Post Character Endpoint
-@router.post("/", response_model=Character_List_Create)
+@router.post("/", response_model=Character_List)
 async def create_character(character: Character_List_Create,
                     db: Session = Depends(get_db)):
 
