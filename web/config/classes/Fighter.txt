@@ -1,0 +1,13 @@
+"Hit Dice": 1d10
+"HP level 1": 10
+"HP at higher levels": 1d10
+"Armor": All Armor, Sheilds
+"Weapons": Simple Weapons, Martial Weapons 
+"Tools": None
+"Savings Throw": Strength, Constitution
+"Skiils": Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, Survival
+"Starting Equipment (1)": Chain Mail, Leather, Longbow, 20 Arrows
+"Starting Equipment (2)": A Martial Weapon and a Shield, Two Martial Weapons
+"Starting Equipment (3)": A Light Crossbows and 20 Bolts, Two Handaxes
+"Starting Equipment": Dungoneer's Pack, Explorer's Pack
+"Features": Fighting Style, Second Wind

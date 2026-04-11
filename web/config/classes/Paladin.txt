@@ -1,0 +1,13 @@
+"Hit Dice": 1d10
+"HP level 1": 10
+"HP at higher levels": 1d10
+"Armor": All Armor, Shields
+"Weapons": Simple Weapons, Martial Weapons
+"Tools": None
+"Savings Throw": Wisdom, Charisma
+"Skiils": Athletics, Insight, Intimidation, Medicine, Persuasion, Religion
+"Starting Equipment (1)": Martial Weapon and a Shield, Two Martial Weapons
+"Starting Equipment (2)": Five Javalins, Any Simple Melee Weapon
+"Starting Equipment (3)": Priest's Pack, Explorer's Pack
+"Starting Equipment": Chain Mail, Holy Symbol
+"Features": Divine Sense, Lay on Hands

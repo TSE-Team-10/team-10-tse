@@ -1,0 +1,12 @@
+"Hit Dice": 1d8
+"HP level 1": 8
+"HP at higher levels": 1d8
+"Armor": Light Armor, Medium Armor, Sheilds
+"Weapons": Clubs, Daggers, Darts, Javelins, Maces, Quarterstaffs, Scimitars, Sickles, Slings, Spears
+"Tools": Heabalism Kit
+"Savings Throw": Wisdom, Intelligence
+"Skiils": Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, Survival
+"Starting Weapons (1)": Wooden Shield, Any Simple Weapon
+"Starting Weapons (2)": Schimitar, Any Simple Melee Weapon
+"Equipment": Leather Armor, An Explorer Pack, Druidic Focus
+"Features": Druidic, Spell Casting

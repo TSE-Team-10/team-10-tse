@@ -1,0 +1,13 @@
+"Hit Dice": 1d8
+"HP level 1": 8
+"HP at higher levels": 1d8
+"Armor": Light Armor
+"Weapons": Simple Weapons, Hand Crossbows, Longswords, Rapiers, Shortswords
+"Tools": Thieves Tools
+"Savings Throw": Intelligence, Dexterity
+"Skiils": Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Slight of Hand, Stealth
+"Starting Equipment (1)": Rapier, Shortsword
+"Starting Equipment (2)": Shortbow and 20 Arrows, Shortsword
+"Starting Equipment (3)": Burglar's Pack, Dungoneer's Pack, Explorer's Pack
+"Starting Equipment": Leather Armor, Two Daggers, Thieves' Tools
+"Features": Expertise, Sneak Attack, Thieves' Cant

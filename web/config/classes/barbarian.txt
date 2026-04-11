@@ -1,0 +1,12 @@
+"Hit Dice": 1d12
+"HP level 1": 12
+"HP at higher levels": 1d12
+"Armor": Light Armor, Medium Armor, shields
+"Weapons": Simple weapons, Martial weapons
+"Tools": None
+"Savings Throw": Strength, Constitution
+"Skiils": Animal Handling, Athletics, Intimidation, Nature, Perception, Survival
+"Starting Weapons (1)": Greataxe, any Martial melee Weapon
+"Starting Weapons (2)": Two handaxes, Any Simple Weapon
+"Equipment": Explorer's Pack, Four Javalins
+"Features": Rage, Unarmoured Defense
