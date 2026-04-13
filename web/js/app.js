@@ -116,7 +116,8 @@ async function runCommand(cmd) {
         {
             case "help":
                 addLine("name (name) - add name to character");
-                addLine("class (class) - add class to character");
+                addLine("class view (list, class) - view class list, or view details of a specified class");
+                addLine("class add (class) - add class to character")
                 addLine("race (race) - add race to character");
                 addLine("save - commit character")
                 addLine("exit - back to main");
@@ -133,7 +134,8 @@ async function runCommand(cmd) {
                 break;
             
             case "class":
-                //TODO: add class logic
+                
+                
                 break;
 
             case "race":

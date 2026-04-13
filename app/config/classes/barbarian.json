@@ -1,0 +1,24 @@
+{
+
+"Hit Dice": "1d12",
+"HP level 1": "12 + con modifier",
+"HP at higher levels": "1d12",
+"Features": ["Rage", "Unarmoured Defense"],
+
+"Proficiencies":
+{
+"Armour": ["Light Armor", "Medium Armor", "shields"],
+"Weapons": ["Simple weapons, Martial weapons"],
+"Tools": ["None"],
+"Saving throws": ["Strength, Constitution"],
+"Skill no": 2,
+"Skills": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Greataxe", "any Martial melee Weapon"], ["Two handaxes", "Any Simple Weapon"]],
+    "static": ["Explorer's Pack", "Four Javelins"]
+}
+
+}
