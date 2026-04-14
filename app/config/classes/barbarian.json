@@ -1,5 +1,5 @@
 {
-
+"Name": "Barbarian",
 "Hit Dice": "1d12",
 "HP level 1": "12 + con modifier",
 "HP at higher levels": "1d12",

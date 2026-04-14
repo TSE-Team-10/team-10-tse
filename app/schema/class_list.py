@@ -15,6 +15,7 @@ class Equipment_List(BaseModel):
     static: list[str]
 
 class Class_List(BaseModel):
+    Name: str
     Hit_Dice: str = Field(alias="Hit Dice")
     HP_level_1: str = Field(alias="HP level 1")
     HP_higher_levels: str = Field(alias="HP at higher levels")

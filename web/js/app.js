@@ -1,5 +1,5 @@
 import {chargen} from "./chargen.js";
-import {login, loadCharacterList} from "./api.js";
+import {login, loadCharacterList, loadClassList} from "./api.js";
 let terminal;
 let input;
 const debug = true;
@@ -7,7 +7,7 @@ export const user = "1";
 export let state = "main";
 
 let character_list = [];
-
+let class_list = [];
 let character_temp = {
     "name": null,
     "race": null,
@@ -117,7 +117,7 @@ async function runCommand(cmd) {
             case "help":
                 addLine("name (name) - add name to character");
                 addLine("class view (list, class) - view class list, or view details of a specified class");
-                addLine("class add (class) - add class to character")
+                addLine("class add (class) - add class to character");
                 addLine("race (race) - add race to character");
                 addLine("save - commit character")
                 addLine("exit - back to main");
@@ -134,8 +134,36 @@ async function runCommand(cmd) {
                 break;
             
             case "class":
-                
-                
+
+                if (!class_list.length)
+                    {class_list = await loadClassList();}
+
+                if (!cmdArray[1])
+                {addLine("Please provide a secondary argument");}
+
+                if (cmdArray[1] === "view" && cmdArray[2] === "list")
+                {
+
+
+                    for (let i = 0; i<class_list.length; i++)
+                    {
+                        addLine(class_list[i].Name);
+                    }
+                }
+
+else if (cmdArray[1] === "view" && cmdArray[2]) {
+    const foundClass = class_list.find(
+        cls => cls.Name === cmdArray[2]
+    );
+
+    if (foundClass) {
+        for (const [key, value] of Object.entries(foundClass)) {
+            addLine(`${key}: ${formatValue(value)}`);
+        }
+    } else {
+        addLine("Class not found.");
+    }
+} 
                 break;
 
             case "race":
@@ -187,4 +215,21 @@ function clearConsole(){
                 {line.remove();});
                 showStaticText();
 }
+
+function formatValue(value, indent = 0) {
+    const spacing = "  ".repeat(indent);
+
+    if (Array.isArray(value)) {
+        return value.map(v => formatValue(v, indent)).join(", ");
+    }
+
+    if (typeof value === "object" && value !== null) {
+        return "\n" + Object.entries(value)
+            .map(([k, v]) => `${spacing}  ${k}: ${formatValue(v, indent + 1)}`)
+            .join("\n");
+    }
+
+    return value;
+}
+
 document.addEventListener("DOMContentLoaded", main)
