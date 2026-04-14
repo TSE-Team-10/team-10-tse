@@ -1,0 +1,24 @@
+{
+"Name": "Warlock",
+"Hit Dice": "1d8",
+"HP level 1": "8 + con modifier",
+"HP at higher levels": "1d8",
+"Features": ["Otherworldly Patron", "Pact Magic"],
+
+"Proficiencies":
+{
+"Armour": ["Light Armor"],
+"Weapons": ["Simple weapons"],
+"Tools": ["None"],
+"Saving throws": ["Wisdom", "Charisma"],
+"Skill no": 2,
+"Skills": ["Arcana","Deception","History","Intimidation","Investigation","Nature","Religion"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Light Crossbow and 20 bolts", "Any Simple Weapon"], ["Component Pouch", "Arcane Focus"], ["Scholar's Pack", "Dungeoneer's Pack"]],
+    "static": ["Leather Armor", "Any Simple Weapon", "Two Daggers"]
+}
+
+}
