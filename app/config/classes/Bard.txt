@@ -6,7 +6,7 @@
 "Tools": Three Musical Instruments of your choice
 "Savings Throw": Dexterity, Charisma
 "Skiils": Choose any three
-"Starting Weapons (1)": Rapier, Any Simple Weapon
+"Starting Equipment (1)": Rapier, Any Simple Weapon
 "Starting Weapons (2)": Diplomats Pack, Entertainers Pack
 "Equipment": Leather Armor, Dagger
 "Features": Spell Casting, Bardic Inspiration
