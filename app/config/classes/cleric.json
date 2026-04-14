@@ -12,13 +12,13 @@
 "Tools": ["None"],
 "Saving throws": ["Wisdom", "Charisma"],
 "Skill no": 2,
-"Skills": ["History","Insight","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand","Stealth","Survival"]
+"Skills": ["History","Insight","Medicine","Persuasion","Religion"]
 },
 
 "Starting equipment choices":
 {
-    "choices": [["Rapier", "Longsword", "Any Simple Weapon"], ["Diplomat's Pack", "Entertainer's Pack"], ["Lute", "Any other musical instrument"]],
-    "static": ["Leather Armor", "Dagger"]
+    "choices": [["Mace", "Warhammer (if proficient)"], ["Scale Mail", "Leather Armor", "Chain Mail (if proficient)"], ["Light Crossbow and 20 bolts", "Any Simple Weapon"], ["Priest's Pack", "Explorer's Pack"]],
+    "static": ["Shield", "Holy Symbol"]
 }
 
 }
