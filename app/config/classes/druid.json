@@ -1,0 +1,24 @@
+{
+"Name": "Druid",
+"Hit Dice": "1d8",
+"HP level 1": "8 + con modifier",
+"HP at higher levels": "1d8",
+"Features": ["Druidic", "Wild Shape"],
+
+"Proficiencies":
+{
+"Armour": ["Light Armor", "Medium Armor", "Shields"],
+"Weapons": ["Clubs", "Daggers", "Darts", "Javelins", "Maces", "Quarterstaffs", "Scimitars", "Sickles", "Slings", "Spears"],
+"Tools": ["Herbalism Kit"],
+"Saving throws": ["Intelligence", "Wisdom"],
+"Skill no": 2,
+"Skills": ["Arcana","Animal Handling","Insight","Medicine","Nature","Perception","Religion","Survival"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Wooden Shield", "Any simple weapon"], ["Scimitar", "Any simple melee weapon"]],
+    "static": ["Leather Armor", "Explorer's Pack", "Druidic Focus"]
+}
+
+}
