@@ -1,0 +1,24 @@
+{
+"Name": "Rogue",
+"Hit Dice": "1d8",
+"HP level 1": "8 + con modifier",
+"HP at higher levels": "1d8",
+"Features": ["Expertise", "Sneak Attack", "Thieves' Cant"],
+
+"Proficiencies":
+{
+"Armour": ["Light Armor"],
+"Weapons": ["Simple weapons","Hand Crossbows", "Longswords", "Rapiers", "Shortswords"],
+"Tools": ["Thieves' Tools"],
+"Saving throws": ["Dexterity", "Intelligence"],
+"Skill no": 4,
+"Skills": ["Acrobatics","Athletics","Deception","Insight","Intimidation","Investigation","Perception","Performance","Persuasion","Sleight of Hand","Stealth"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Rapier", "Shortsword"], ["Shortbow and quiver of 20 arrows", "Shortsword"], ["Burglar's Pack", "Dungeoneer's Pack", "Explorer's Pack"]],
+    "static": ["Leather Armor", "Two Daggers", "Thieves' Tools"]
+}
+
+}
