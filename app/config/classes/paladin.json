@@ -1,0 +1,24 @@
+{
+"Name": "Paladin",
+"Hit Dice": "1d10",
+"HP level 1": "10 + con modifier",
+"HP at higher levels": "1d10",
+"Features": ["Divine Sense", "Lay on Hands"],
+
+"Proficiencies":
+{
+"Armour": ["All Armour", "Shields"],
+"Weapons": ["Simple weapons","Martial weapons"],
+"Tools": ["None"],
+"Saving throws": ["Wisdom", "Charisma"],
+"Skill no": 2,
+"Skills": ["Athletics","Insight","Intimidation","Medicine","Persuasion","Religion"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Martial Weapon and Shield", "Two Martial Weapons"], ["Five Javelins", "Any Simple Melee Weapon"], ["Priest's Pack", "Explorer's Pack"]],
+    "static": ["Chain Mail", "Holy Symbol"]
+}
+
+}
