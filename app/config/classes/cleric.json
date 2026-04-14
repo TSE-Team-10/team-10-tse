@@ -1,0 +1,24 @@
+{
+"Name": "Cleric",
+"Hit Dice": "1d8",
+"HP level 1": "8 + con modifier",
+"HP at higher levels": "1d8",
+"Features": ["Divine Domain", "Channel Divinity"],
+
+"Proficiencies":
+{
+"Armour": ["Light Armor", "Medium Armor", "Shields"],
+"Weapons": ["Simple weapons"],
+"Tools": ["None"],
+"Saving throws": ["Wisdom", "Charisma"],
+"Skill no": 2,
+"Skills": ["History","Insight","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand","Stealth","Survival"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Rapier", "Longsword", "Any Simple Weapon"], ["Diplomat's Pack", "Entertainer's Pack"], ["Lute", "Any other musical instrument"]],
+    "static": ["Leather Armor", "Dagger"]
+}
+
+}
