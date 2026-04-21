@@ -1,0 +1,24 @@
+{
+"Name": "Wizard",
+"Hit Dice": "1d6",
+"HP level 1": "6 + con modifier",
+"HP at higher levels": "1d6",
+"Features": ["Arcane Recovery", "Spellcasting"],
+
+"Proficiencies":
+{
+"Armour": ["None"],
+"Weapons": ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
+"Tools": ["None"],
+"Saving throws": ["Intelligence", "Wisdom"],
+"Skill no": 2,
+"Skills": ["Arcana","History","Insight","Investigation","Medicine","Religion"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Quarterstaff", "Dagger"], ["Component Pouch", "Arcane Focus"], ["Scholar's Pack", "Explorer's Pack"]],
+    "static": ["Spellbook"]
+}
+
+}

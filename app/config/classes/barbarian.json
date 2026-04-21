@@ -8,9 +8,9 @@
 "Proficiencies":
 {
 "Armour": ["Light Armor", "Medium Armor", "shields"],
-"Weapons": ["Simple weapons, Martial weapons"],
+"Weapons": ["Simple weapons", "Martial weapons"],
 "Tools": ["None"],
-"Saving throws": ["Strength, Constitution"],
+"Saving throws": ["Strength", "Constitution"],
 "Skill no": 2,
 "Skills": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"]
 },
