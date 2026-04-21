@@ -1,0 +1,24 @@
+{
+"Name": "Bard",
+"Hit Dice": "1d8",
+"HP level 1": "8 + con modifier",
+"HP at higher levels": "1d8",
+"Features": ["Bardic Inspiration", "Jack of All Trades", "Song of Rest"],
+
+"Proficiencies":
+{
+"Armour": ["Light Armor"],
+"Weapons": ["Simple weapons", "Hand crossbows", "Longswords", "Rapiers", "Shortswords"],
+"Tools": ["Three musical instruments of your choice"],
+"Saving throws": ["Dexterity", "Charisma"],
+"Skill no": 3,
+"Skills": ["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand","Stealth","Survival"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Rapier", "Longsword", "Any Simple Weapon"], ["Diplomat's Pack", "Entertainer's Pack"], ["Lute", "Any other musical instrument"]],
+    "static": ["Leather Armor", "Dagger"]
+}
+
+}

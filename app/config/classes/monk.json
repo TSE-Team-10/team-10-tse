@@ -1,0 +1,24 @@
+{
+"Name": "Monk",
+"Hit Dice": "1d8",
+"HP level 1": "8 + con modifier",
+"HP at higher levels": "1d8",
+"Features": ["Unarmored Defense", "Martial Arts"],
+
+"Proficiencies":
+{
+"Armour": ["None"],
+"Weapons": ["Simple weapons","Shortswords"],
+"Tools": ["Choose one type of artisan's tools or one musical instrument"],
+"Saving throws": ["Strength", "Dexterity"],
+"Skill no": 2,
+"Skills": ["Acrobatics","Athletics","History","Insight","Religion","Stealth"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Shortsword", "Any simple weapon"], ["Dungeoneer's Pack", "Explorer's Pack"]],
+    "static": ["10 darts"]
+}
+
+}

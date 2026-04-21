@@ -1,0 +1,24 @@
+{
+"Name": "Sorcerer",
+"Hit Dice": "1d6",
+"HP level 1": "6 + con modifier",
+"HP at higher levels": "1d6",
+"Features": ["Spellcasting", "Sorcerous Origin"],
+
+"Proficiencies":
+{
+"Armour": ["None"],
+"Weapons": ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light Crossbows"],
+"Tools": ["None"],
+"Saving throws": ["Constitution", "Charisma"],
+"Skill no": 2,
+"Skills": ["Arcana","Deception","Insight","Intimidation","Persuasion","Religion"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Light Crossbow and 20 bolts", "Any Simple Weapon"], ["Component Pouch", "Arcane Focus"], ["Dungeoneer's Pack", "Explorer's Pack"]],
+    "static": ["Two Daggers"]
+}
+
+}

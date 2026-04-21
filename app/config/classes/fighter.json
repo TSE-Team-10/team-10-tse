@@ -1,0 +1,24 @@
+{
+"Name": "Fighter",
+"Hit Dice": "1d10",
+"HP level 1": "10 + con modifier",
+"HP at higher levels": "1d10",
+"Features": ["Fighter Style", "Second Wind"],
+
+"Proficiencies":
+{
+"Armour": ["All Armour", "Shields"],
+"Weapons": ["Simple weapons", "Martial weapons"],
+"Tools": ["None"],
+"Saving throws": ["Strength", "Constitution"],
+"Skill no": 2,
+"Skills": ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Chain Mail", "Leather Armor, Longbow and 20 Arrows"], ["Martial Weapon and Shield", "Two Martial Weapons"], ["Light Crossbow and 20 bolts", "Two Handaxes"]],
+    "static": []
+}
+
+}

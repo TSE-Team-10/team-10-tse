@@ -1,0 +1,24 @@
+{
+"Name": "Cleric",
+"Hit Dice": "1d8",
+"HP level 1": "8 + con modifier",
+"HP at higher levels": "1d8",
+"Features": ["Divine Domain", "Channel Divinity"],
+
+"Proficiencies":
+{
+"Armour": ["Light Armor", "Medium Armor", "Shields"],
+"Weapons": ["Simple weapons"],
+"Tools": ["None"],
+"Saving throws": ["Wisdom", "Charisma"],
+"Skill no": 2,
+"Skills": ["History","Insight","Medicine","Persuasion","Religion"]
+},
+
+"Starting equipment choices":
+{
+    "choices": [["Mace", "Warhammer (if proficient)"], ["Scale Mail", "Leather Armor", "Chain Mail (if proficient)"], ["Light Crossbow and 20 bolts", "Any Simple Weapon"], ["Priest's Pack", "Explorer's Pack"]],
+    "static": ["Shield", "Holy Symbol"]
+}
+
+}
