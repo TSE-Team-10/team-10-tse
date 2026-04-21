@@ -1,0 +1,16 @@
+{
+    "Race Name": "Human",
+    "Subraces": [],
+    "Ability Score Increase": {
+        "Strength": 1,
+        "Dexterity": 1,
+        "Constitution": 1,
+        "Intelligence": 1,
+        "Wisdom": 1,
+        "Charisma": 1
+    },
+    "Speed": 30,
+    "Features": [
+        "Extra Language"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "Race Name": "Half-Elf",
+    "Subraces": [],
+    "Ability Score Increase": {
+        "Charisma": 2,
+        "Any Other Two Ability Scores": 1
+    },
+    "Speed": 30,
+    "Features": [
+        "Darkvision",
+        "Fey Ancestry",
+        "Skill Versatility"
+    ]
+}

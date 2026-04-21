@@ -1,0 +1,32 @@
+{
+    "Race Name": "Halfling",
+    "Subraces": [
+        {
+            "Subrace Name": "Lightfoot",
+            "Ability Score Increase": {
+                "Charisma": 1
+            },
+            "Features": [
+                "Naturally Stealthy"
+            ]
+        },
+        {
+            "Subrace Name": "Stout",
+            "Ability Score Increase": {
+                "Constitution": 1
+            },
+            "Features": [
+                "Stout Resilience"
+            ]
+        }
+    ],
+    "Ability Score Increase": {
+        "Dexterity": 2
+    },
+    "Speed": 25,
+    "Features": [
+        "Lucky",
+        "Brave",
+        "Halfling Nimbleness"
+    ]
+}
