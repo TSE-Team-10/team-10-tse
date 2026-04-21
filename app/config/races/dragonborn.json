@@ -1,0 +1,14 @@
+{
+    "Race Name": "Dragonborn",
+    "Subraces": [],
+    "Ability Score Increase": {
+        "Strength": 2,
+        "Charisma": 1
+    },
+    "Speed": 30,
+    "Features": [
+        "Draconic Ancestry",
+        "Breath Weapon",
+        "Damage Resistance"
+    ]
+}
