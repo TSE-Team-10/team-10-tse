@@ -56,3 +56,15 @@ export async function loadClassList()
 
     return response.json();
 }
+
+export async function loadRaceList()
+{
+        const response = await fetch(API_URL + "/race_list/");
+
+    if (!response.ok)
+    {console.log("fugg");}
+    else
+    {console.log("yippee");}
+
+    return response.json();
+}

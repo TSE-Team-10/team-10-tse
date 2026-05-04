@@ -1,19 +1,19 @@
 {
-    "Race Name":"Dwarf",
+    "Name":"Dwarf",
     
     "Subraces": [
         {
             "Subrace Name": "Hill Dwarf",
-            "Ability Score Increase": {"Wisdom": 1},
+            "Ability Score Increase": [{"ability": "Wisdom", "bonus": 1}],
             "Features": ["Dwarven Toughness"]
         },
         {
             "Subrace Name": "Mountain Dwarf",
-            "Ability Score Increase": {"Strength": 2},
+            "Ability Score Increase": [{"ability": "Strength", "bonus": 2}],
             "Features": ["Dwarven Armor Training"]
         }
     ],
-    "Ability Score Increase": {"Constitution": 2},
+    "Ability Score Increase": [{"ability": "Constitution", "bonus": 2}],
     "Speed": 25,
     "Features": ["Darkvision", "Dwarven Resilience", "Dwarven Combat Training", "Stonecunning"]
 }

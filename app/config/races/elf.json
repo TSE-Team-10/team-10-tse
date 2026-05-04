@@ -1,19 +1,19 @@
 {
-    "Race Name": "Elf",
+    "Name": "Elf",
     "Subraces": [
         {
             "Subrace Name": "High Elf",
-            "Ability Score Increase": {"Intelligence": 1},
+            "Ability Score Increase": [{"ability": "Intelligence", "bonus": 1}],
             "Features": ["Elf Weapon Training", "Cantrip", "Extra Language"]
         },
         {
             "Subrace Name": "Wood Elf",
-            "Ability Score Increase": {"Wisdom": 1},
+            "Ability Score Increase": [{"ability": "Wisdom", "bonus": 1}],
             "Features": ["Elf Weapon Training", "Fleet of Foot", "Mask of the Wild"]
         },
         {
             "Subrace Name": "Dark Elf (Drow)",
-            "Ability Score Increase": {"Charisma": 1},
+            "Ability Score Increase": [{"ability": "Charisma", "bonus": 1}],
             "Features": [
                 "Superior Darkvision",
                 "Sunlight Sensitivity",
@@ -22,7 +22,7 @@
             ]
         }
     ],
-    "Ability Score Increase": {"Dexterity": 2},
+    "Ability Score Increase": [{"ability": "Dexterity", "bonus": 2}],
     "Speed": 30,
     "Features": ["Darkvision", "Keen Senses", "Fey Ancestry", "Trance"]
 }

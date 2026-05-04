@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import app.core.security as security
 import app.core.deps as deps
 from app.db.init_db import init_db
-from app.api import character_attributes, character_details, character_list, character_skills, user, token, class_list
+from app.api import character_attributes, character_details, character_list, character_skills, user, token, class_list, race_list
 
 app = FastAPI()
 
@@ -36,3 +36,4 @@ app.include_router(character_list.router)
 app.include_router(user.router)
 app.include_router(token.router)
 app.include_router(class_list.router)
+app.include_router(race_list.router)
