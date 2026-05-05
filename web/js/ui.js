@@ -1,5 +1,5 @@
 import {state} from "./app.js";
-import {character_buffer} from "./chargen.js";
+import {character_buffer, showStatsHeader, showSkillsHeader} from "./chargen.js";
 
 export let input;
 
@@ -12,7 +12,6 @@ export function loadUI(){
     input = document.getElementById("commandInput");
     header = document.getElementById("terminal-header")
 }
-
 
 //clears the output terminal
 export function clearTerminal(){
@@ -38,7 +37,7 @@ export function addHeader(text){
 
 //wrapper for header functions
 export function showHeader(){
-
+    // TODO: replace with switch case
     if (state === "main"){
         clearHeader();
         showHeaderMain();
@@ -48,25 +47,44 @@ export function showHeader(){
         clearHeader();
         showHeaderCharGen1();
     }
+
+    if (state === "chargen_2")
+    {
+        clearHeader();
+        showHeaderCharGen2();
+    }
+    if (state === "chargen_3")
+    {
+        clearHeader();
+        showHeaderCharGen3();
+    }
 }
+
 //displays text for main state header
 function showHeaderMain()
 {
     addHeader("Welcome to the Character Generator");
     addHeader("(Type help to see commands.)");
 }
+
 //displays header for chargen_1 state header
-export function showHeaderCharGen1()
+function showHeaderCharGen1()
 {
     addHeader("Creating character:");
     addHeader("Name | Class | Race | Level");
 
-    addHeader(
-        `${character_buffer.name || "None"} | ` +
-        `${character_buffer.class_?.Name || "None"} | ` +
-        `${character_buffer.race?.Name || "None"} | ` +
-        `level ${character_buffer.level || 1}`
+    addHeader(`${character_buffer.name || "None"} | ` 
+                + `${character_buffer.class_?.Name || "None"} | ` 
+                + `${character_buffer.race?.Name || "None"} | ` 
+                + `level ${character_buffer.level || 1}`
     );
+}
+
+//displays header for chargen_2 state header
+function showHeaderCharGen2()
+{
+    addHeader("Character Attributes:");
+    showStatsHeader();
 }
 
 //clears the header text
@@ -74,18 +92,34 @@ function clearHeader(){
     header.querySelectorAll(".line").forEach(line => {line.remove();})
 }
 
+//displays header for chargen_3 state header
+function showHeaderCharGen3()
+{
+    showSkillsHeader();
+}
+
+//iterates for objects within objects
 export function formatValue(value, indent = 0) {
+
+//solution sourced from
+// https://stackoverflow.com/questions/14810506/map-function-for-objects-instead-of-arrays/49731588
+// calling a json object within a json object needed its own sub-solution
+// TODO: change the name to something more relevant
+
     const spacing = "  ".repeat(indent);
 
+    //iterates itself if the entry is an array
     if (Array.isArray(value)) {
         return value.map(v => formatValue(v, indent)).join(", ");
     }
 
+    //if it finds an object, iterate itself for the entries in that object
     if (typeof value === "object" && value !== null) {
         return "\n" + Object.entries(value)
             .map(([k, v]) => `${spacing}  ${k}: ${formatValue(v, indent + 1)}`)
             .join("\n");
     }
 
+    //base case just returns the value
     return value;
 }

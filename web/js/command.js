@@ -1,6 +1,8 @@
 import {clearTerminal, addLine, showHeader} from "./ui.js";
-import {loadCharGen, addName, viewClass, addClass, viewRace, addRace, clearCharacterBuffer} from "./chargen.js";
+import {loadCharGen, addName, viewClass, addClass, viewRace, addRace, clearCharacterBuffer, validateCharGen1,
+        assignScore, resetScores, validateCharGen2, populateSkills, commitAbilityScores, validateCharGen3, chargen} from "./chargen.js";
 import {state, setState, user} from "./app.js";
+import {login} from "./api.js";
 
 
 //wrapper function for input commands
@@ -23,6 +25,10 @@ export async function runCommand(cmd) {
             case "chargen_1":
                 runCommandChargen(cmdArray);
                 break;
+            
+            case "chargen_2":
+                runCommandChargenStats(cmdArray);
+                break;
 
             default:
                 addLine("Error: unknown app state");
@@ -31,7 +37,6 @@ export async function runCommand(cmd) {
         }  
     }
 }
-
 
 async function runCommandMain(cmdArray)
 {
@@ -159,10 +164,15 @@ export async function runCommandChargen(cmdArray)
 
             break;
 
-        case "save":
-            chargen(user);
-            setState("main");
-            console.log ("switching state to:", main);
+        case "next":
+
+            if (validateCharGen1())
+            {
+            setState("chargen_2");
+            showHeader();
+            clearTerminal();
+            }
+
             break;
 
         case "exit":
@@ -177,4 +187,94 @@ export async function runCommandChargen(cmdArray)
     }
 }
 
+export async function runCommandChargenStats(cmdArray)
+{
 
+    switch (cmdArray[0].toLowerCase())
+    {
+        case "help":
+            addLine("assign [ability] [value]");
+            addLine("reset");
+            addLine("next");
+            addLine("exit");
+            break;
+
+        case "assign":
+
+            if (!cmdArray[1] || !cmdArray[2])
+            {break;}
+
+            assignScore(cmdArray[1], cmdArray[2]);
+            break;
+        
+        case "reset":
+            resetScores();
+            break;
+        
+        case "next":
+
+            if (validateCharGen2())
+            {
+            commitAbilityScores();
+            populateSkills();
+            setState("chargen_3");
+            console.log ("switching state to:", state);
+            showHeader();
+            clearTerminal();
+            }
+
+            break;
+
+        case "exit":
+            setState("main");
+            console.log ("switching state to:", state);
+            clearCharacterBuffer();
+            clearTerminal();
+            break;
+
+        default:
+            addLine("Command not found: " + cmdArray[0]);
+            break;
+
+    }
+}
+
+export async function runCommandChargenSkills(cmdArray)
+{
+    switch (cmdArray[0].toLowerCase())
+    {
+        case "help":
+            addLine("assign [ability] [value]");
+            addLine("reset");
+            addLine("next");
+            addLine("exit");
+            break;
+        
+        case "next":
+            if (!validateCharGen3())
+            {
+                break;
+            }
+            if (!chargen())
+            {break;}
+            addLine("character created successfully");
+
+            setState("main");
+            console.log ("switching state to:", state);
+            clearCharacterBuffer();
+
+            break;
+
+        case "exit":
+            setState("main");
+            console.log ("switching state to:", state);
+            clearCharacterBuffer();
+            clearTerminal();
+            break;
+
+        default:
+            addLine("Command not found: " + cmdArray[0]);
+            break;
+
+    }
+}
