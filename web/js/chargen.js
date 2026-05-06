@@ -1,5 +1,5 @@
 import { insert_new_char_db, loadClassList, loadRaceList } from "./api.js";
-import {state, setState} from './app.js';
+import {state, setState, user} from './app.js';
 import {formatValue, addLine, showHeader, addHeader} from "./ui.js";
 
 export let class_list = [];
@@ -8,6 +8,7 @@ export let character_buffer = {
     "name": null,
     "race": null,
     "class_": null,
+    "level": 1,
     "Attributes": [
         {"Strength": 0},
         {"Dexterity": 0},
@@ -15,6 +16,27 @@ export let character_buffer = {
         {"Wisdom": 0},
         {"Intelligence": 0},
         {"Charisma": 0}
+    ],
+    "Skills": [
+        {"Acrobatics": 0},
+        {"Animal Handling": 0},
+        {"Arcana": 0},
+        {"Athletics": 0},
+        {"Deception": 0},
+        {"History": 0},
+        {"Insight": 0},
+        {"Intimidation": 0},
+        {"Investigation": 0},
+        {"Medicine": 0},
+        {"Nature": 0},
+        {"Perception": 0},
+        {"Performance": 0},
+        {"Persuasion": 0},
+        {"Religion": 0},
+        {"Sleight of Hand": 0},
+        {"Stealth": 0},
+        {"Survival": 0}
+
     ]
 };
 
@@ -35,7 +57,26 @@ let assigned_attributes = {};
 //step 3: skills
 let skill_counter = 0;
 let skills = [];
-
+const skill_abilities = {
+    "Acrobatics": "Dexterity",
+    "Animal Handling": "Wisdom",
+    "Arcana": "Intelligence",
+    "Athletics": "Strength",
+    "Deception": "Charisma",
+    "History": "Intelligence",
+    "Insight": "Wisdom",
+    "Intimidation": "Charisma",
+    "Investigation": "Intelligence",
+    "Medicine": "Wisdom",
+    "Nature": "Intelligence",
+    "Perception": "Wisdom",
+    "Performance": "Charisma",
+    "Persuasion": "Charisma",
+    "Religion": "Intelligence",
+    "Sleight of Hand": "Dexterity",
+    "Stealth": "Dexterity",
+    "Survival": "Wisdom"
+};
 
 //load class list and race list from api
 export async function loadCharGen()
@@ -65,20 +106,31 @@ export async function clearCharacterBuffer()
 }
 
 //sends character to database
-export function chargen(user)
-{   //TODO: finish this 
-    character_buffer.class_ = character_buffer.class_.name;
-    character_buffer.race = character_buffer.race.name;
+export async function chargen() {
 
-    try {
-        insert_new_char_db(user, character_buffer);
-    }
-    catch (error)
-    {
-        console.log("something went wrong", error);
-        return false;
-    }
-    return true;
+    console.log(character_buffer);
+
+        let output = {
+            belongs_to: user,
+            details: {
+                name: character_buffer.name,
+                race: character_buffer.race.Name,
+                class_: character_buffer.class_.Name,
+                level: character_buffer.level ?? 1
+            },
+            Attributes: character_buffer.Attributes,
+            Skills: character_buffer.Skills
+        };
+
+        console.log(output);
+        let result = await insert_new_char_db(output);
+
+        if (!result) {
+            console.log("Character creation failed");
+            return false;
+        }
+
+        return true;
 }
 
 //add name to character buffer
@@ -206,7 +258,7 @@ export async function showStatsHeader()
 {
     let race_ASI = getRaceASI(); //nab ASI from race object gotten in previous step
 
-    for (attribute of character_buffer.Attributes)
+    for (let attribute of character_buffer.Attributes)
     {   
         //output should be something like str: 18 (15 + 3)
         // (15+3) is only needed if it's increased from race
@@ -218,7 +270,7 @@ export async function showStatsHeader()
         let base_value = assigned_attributes[attribute_name]
                         ?? attribute[attribute_name];
 
-        let race_bonus = racialBonuses[attribute_name] ?? 0;
+        let race_bonus = race_ASI[attribute_name] ?? 0;
 
         let finalValue = base_value + race_bonus;
 
@@ -226,16 +278,16 @@ export async function showStatsHeader()
                     + finalValue;
 
         // this part should add the (15+3)
-        if (racialBonus > 0)
+        if (race_bonus > 0)
         {
-            output +=" (" + baseValue + " + " + racialBonus + ")";
+            output +=" (" + base_value + " + " + race_bonus + ")";
         }
 
         addHeader(output);
     }
 
-    addLine("");
-    addLine("Remaining scores: " + stat_buffer.join(", "));
+    addHeader("");
+    addHeader("Remaining scores: " + stat_buffer.join(", "));
 }
 
 //get ASI from race in buffer
@@ -247,10 +299,10 @@ function getRaceASI()
     for (let entry of character_buffer.race["Ability Score Increase"])
     {
         ASI[entry.ability] = entry.bonus;
-        console.log("adding " + bonuses[entry.ability] + "with value " + entry.bonus);
+        console.log("adding " + ASI[entry.ability] + "with value " + entry.bonus);
     }
 
-    return bonuses;
+    return ASI;
 }
 
 // assign stat from standard array
@@ -315,6 +367,7 @@ export function validateCharGen2()
     return false;
 }
 
+// commit ability score buffer to character buffer
 export function commitAbilityScores()
 {
     //solution sourced from
@@ -323,28 +376,152 @@ export function commitAbilityScores()
 
     character_buffer.Attributes = character_buffer.Attributes.map(attribute => 
         {let name = Object.keys(attribute)[0];
-        return {[name]: assigned_attributes[attribute]};
-    })
+        return {[name]: assigned_attributes[name]};
+    });
 
 }
 
+//add skills to a buffer
 export function populateSkills(){
-    for (skill in character_buffer.class_.skills)
+    for (let skill in character_buffer.class_.skills)
     {
         skills.push(skill);
     }
+    character_buffer.class_.Proficiencies["Skill no"];
 }
+
+//display skills
 export function showSkillsHeader()
 {   
     addHeader(`choices remaining: ${skill_counter}`);
     addHeader("available skills:");
-    for (skill in skills)
+    for (let skill of character_buffer.Skills)
     {
-        addHeader(skill);
+        let skill_name = Object.keys(skill)[0];
+
+        let proficient = skill[skill_name]; //skills are tracked in bool 0/1
+        let bonus = 0;
+        if (proficient)
+        {
+            bonus = 2;
+        }
+
+        //im pretty sure this is a programming war crime but i've run out of names
+        let ability = skill_abilities[skill_name]; //grab related ability for modifier modifier
+        let attribute_score = character_buffer.Attributes.find(
+        attribute => Object.keys(attribute)[0] === ability);
+
+        let score = Object.values(attribute_score);
+        let modifier = getAbilityModifier(score); // ditto
+
+        let total = modifier + bonus;
+        let mark = proficient ? "X " : "";
+        let output = `${mark}${skill_name}: ${total}`;
+
+
+        addHeader(output);
     }
+}
+
+export function toggleSkill(skill_name)
+{
+
+
+    let skill = character_buffer.Skills.find( // grab skill from character
+        skl => Object.keys(skl)[0].toLowerCase() === skill_name.toLowerCase()
+    );
+
+    if (!skill)
+    {
+        addLine("Skill not found.");
+        return;
+    }
+
+    let name = Object.keys(skill)[0];
+    let prof = skill[name];
+
+    if (prof === 1)
+    {
+        skill[name] = 0;
+        skill_counter++;
+
+        addLine(`${name} removed.`);
+        
+
+        return;
+    }
+
+    if (skill_counter === 0)
+    {
+        addLine("No remaining skill choices.");
+        return;
+    }
+
+        skill[name] = 1;
+        skill_counter--;
+        addLine(`${name} selected.`);
+
+}
+
+export function validateCharGen3()
+{
+    if (skill_counter != 0)
+    {
+        addLine("you still have skill options remaining");
+        return false;
+    }
+    return true;
+
 }
 //returns string with first character capitalized
 export function capitalize(input)
 {
     return (input.charAt(0).toUpperCase() + input.slice(1).toLowerCase()); // i can't believe i had to write this manually
+}
+
+
+export function getAbilityModifier(score)
+{
+    return Math.floor((score - 10) / 2);
+}
+
+export function getTestCharacter()
+{
+    character_buffer = {
+        name: "testman",
+        race: {name: "testrace"},
+        class_: {name: "testclass"},
+        level: 1,
+        Attributes: [
+            {"Strength": 10},
+            {"Dexterity": 10},
+            {"Constitution": 10},
+            {"Wisdom": 10},
+            {"Intelligence": 10},
+            {"Charisma": 10}
+        ],
+        Skills: [
+            {"Acrobatics": 1},
+            {"Animal Handling": 1},
+            {"Arcana": 0},
+            {"Athletics": 0},
+            {"Deception": 0},
+            {"History": 0},
+            {"Insight": 0},
+            {"Intimidation": 0},
+            {"Investigation": 0},
+            {"Medicine": 0},
+            {"Nature": 0},
+            {"Perception": 0},
+            {"Performance": 0},
+            {"Persuasion": 0},
+            {"Religion": 0},
+            {"Sleight of Hand": 0},
+            {"Stealth": 0},
+            {"Survival": 0}
+        ]
+    };
+
+chargen();
+return;
 }

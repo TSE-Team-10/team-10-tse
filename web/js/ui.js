@@ -78,6 +78,7 @@ function showHeaderCharGen1()
                 + `${character_buffer.race?.Name || "None"} | ` 
                 + `level ${character_buffer.level || 1}`
     );
+        addHeader("(Type help to see commands.)");
 }
 
 //displays header for chargen_2 state header
@@ -85,6 +86,7 @@ function showHeaderCharGen2()
 {
     addHeader("Character Attributes:");
     showStatsHeader();
+    addHeader("(Type help to see commands.)");
 }
 
 //clears the header text
@@ -96,6 +98,7 @@ function clearHeader(){
 function showHeaderCharGen3()
 {
     showSkillsHeader();
+    addHeader("(Type help to see commands.)");
 }
 
 //iterates for objects within objects

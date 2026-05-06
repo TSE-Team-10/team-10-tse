@@ -1,10 +1,11 @@
 import {clearTerminal, addLine, showHeader} from "./ui.js";
 import {loadCharGen, addName, viewClass, addClass, viewRace, addRace, clearCharacterBuffer, validateCharGen1,
-        assignScore, resetScores, validateCharGen2, populateSkills, commitAbilityScores, validateCharGen3, chargen} from "./chargen.js";
+        assignScore, resetScores, validateCharGen2, populateSkills, commitAbilityScores, validateCharGen3, chargen,
+        toggleSkill, getTestCharacter} from "./chargen.js";
 import {state, setState, user} from "./app.js";
-import {login} from "./api.js";
+import {insert_new_char_db, login, loadCharacterList} from "./api.js";
 
-
+let character_list = [];
 //wrapper function for input commands
 export async function runCommand(cmd) {
 
@@ -29,6 +30,9 @@ export async function runCommand(cmd) {
             case "chargen_2":
                 runCommandChargenStats(cmdArray);
                 break;
+            case "chargen_3":
+                runCommandChargenSkills(cmdArray);
+                break;
 
             default:
                 addLine("Error: unknown app state");
@@ -46,8 +50,8 @@ async function runCommandMain(cmdArray)
         case "help":
             addLine("Available commands:");
             addLine("help - show commands");
-            addLine("about - about this interface");
-            addLine("login (username) (password) - log in using credentials ");
+            //addLine("about - about this interface");
+            //addLine("login (username) (password) - log in using credentials ");
             addLine("new - start a new character");
             addLine("list - show existing characters")
             addLine("clear - clear terminal");
@@ -79,7 +83,12 @@ async function runCommandMain(cmdArray)
             login(cmdArray[1], cmdArray[2]);
             break;
 
-        /*case "list":
+        case "test":
+        
+        let character = getTestCharacter();
+        break;
+
+        case "list":
         if (!character_list.length)
             {
                 character_list = await loadCharacterList(user);
@@ -89,7 +98,7 @@ async function runCommandMain(cmdArray)
         for (let i=0; i<character_list.length; i++)
         {addLine(i + "| " + character_list[i].details.name + " | " + character_list[i].details.class_ + " | " + character_list[i].details.race + " | level " + character_list[i].details.level);}
         break;
-        */
+        
 
         default:
             addLine("Command not found: " + cmdArray[0]);
@@ -244,18 +253,28 @@ export async function runCommandChargenSkills(cmdArray)
     switch (cmdArray[0].toLowerCase())
     {
         case "help":
-            addLine("assign [ability] [value]");
-            addLine("reset");
+            addLine("add [skill] - add/remove proficiency to skill");
             addLine("next");
             addLine("exit");
             break;
         
+        case "add":
+            {
+                if (!cmdArray[1])
+                {
+                    addLine("please add secondary arguement")
+                    break;
+                }
+                toggleSkill(cmdArray[1]);
+                showHeader();
+                break;
+            }
         case "next":
             if (!validateCharGen3())
             {
                 break;
             }
-            if (!chargen())
+            if (! await chargen())
             {break;}
             addLine("character created successfully");
 
