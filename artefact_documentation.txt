@@ -1,0 +1,42 @@
+Artefact Documentation
+
+The artefact is a web-based character sheet generator for a TTRPG, that allows you to create a profile and enter the details of a character you have created such as name, race, class, level and skills. 
+It then stores this information in an InnoDB database which you can then fetch and view or modify, if you are logged into the profile the character is connected too.
+
+The aim of this artefact is to introduce basic programming principles to potential aspiring computer scientists that believe the subject is boring, by using tabletop RPGs as a fun introduction. With the 
+goals being as follows: use the TTRPG gimmick to entice the potential computer scientists, introduce computer science concepts through the character creation to prove it isn’t boring, end their use of the 
+software having changed their mind about computer science.
+
+Instructions for use
+
+step 1: open terminal
+step 2: cd into the root folder where compose.yml is located 
+step 3: run with "docker compose up"
+
+Database layer is accessed with:
+address: 127.0.0.1:3306
+user: root
+pass: tse10
+
+API layer is accessed with
+address: 127.0.0.1:8080/docs
+
+front-end is accessed with:
+address: 127.0.0.1:8081
+
+The front-end is the main interface for the user, and is left intentionally ambiguous for the user to play around with,
+with an assumption that the user is familiar with the game system Dungeons and Dragons, with that being said, here is a brief walkthrough:
+
+the user should input "help", and then "new" to start the creation process for a new character.
+The first stage of character creation asks the user for their name, class and race.
+name can be inputted directly, while race and class offer "X view list" for a list of options,
+and then "X view Y" to view the actual details for the specified race and class.
+The user should then input "X add Y", and then "next" to proceed to stage 2.
+
+Stage 2 asks the user to input their attributes by assigning a standard array (the numbers 15, 14, 13, 12, 10, 8).
+This can be done with "assign X Y", and should be repeated until all attributes have been assigned a number.
+The user can type "reset" to begin again should they make a mistake. and "next" to proceed to the final stage.
+
+Stage 3 asks the user to assign their starting skills, which can be done with "select X", as many times as prompted,
+with "reset" once again resetting the process. Typing "next" will move to a confirmation screen, after which the character
+will be committed to the database.

@@ -1,18 +1,18 @@
 {
-    "Race Name": "Gnome",
+    "Name": "Gnome",
     "Subraces": [
         {
             "Subrace Name": "Forest Gnome",
-            "Ability Score Increase": {"Dexterity": 1},
+            "Ability Score Increase": [{"ability": "Dexterity", "bonus": 1}],
             "Features": ["Natural Illusionist", "Speak with Small Beasts"]
         },
         {
             "Subrace Name": "Rock Gnome",
-            "Ability Score Increase": {"Constitution": 1},
+            "Ability Score Increase": [{"ability": "Constitution", "bonus": 1}],
             "Features": ["Artificer's Lore", "Tinker"]
         }
     ],
-    "Ability Score Increase": {"Intelligence": 2},
+    "Ability Score Increase": [{"ability": "Intelligence","bonus": 2}],
     "Speed": 25,
     "Features": ["Darkvision", "Gnome Cunning"]
 }

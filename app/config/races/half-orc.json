@@ -1,10 +1,9 @@
 {
-    "Race Name": "Half-Orc",
+    "Name": "Half-Orc",
     "Subraces": [],
-    "Ability Score Increase": {
-        "Strength": 2,
-        "Constitution": 1
-    },
+    "Ability Score Increase": [
+        {"ability": "Strength", "bonus": 2},
+        {"ability": "Constitution", "bonus": 1}],
     "Speed": 30,
     "Features": [
         "Darkvision",

@@ -99,18 +99,17 @@ CREATE TABLE `character_skills` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO `character_list`(
-  `id`,
-  `belongs_to`)
+INSERT INTO `user`(
+  `alias`,
+  `password_hash`,
+  `email`)
 VALUES (
-  1,
-  1);
+  "1",
+  "1",
+  "1");
 
-INSERT INTO `character_details`(
-  `id`)
-  VALUES(
-    1
-  );
+
+
 
 
 -- -----------------------------------------------------
